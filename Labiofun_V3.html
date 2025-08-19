@@ -1,0 +1,2407 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratório de Biofísica de Fungos (LBF)</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2a623d;
+            --secondary: #2a3d62;
+            --accent: #8c1d40;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7f9;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .logo-img {
+            height: 70px;
+        }
+        
+        .logo-text {
+            line-height: 1.2;
+        }
+        
+        .logo h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .logo p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        
+        nav a:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1518834107812-67b0b7c58434?q=80&w=1000') center/cover no-repeat;
+            color: white;
+            padding: 5rem 0;
+            text-align: center;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        /* Section Styles */
+        section {
+            padding: 4rem 0;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-header h2 {
+            font-size: 2rem;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--accent);
+        }
+        
+        .section-header p {
+            color: var(--gray);
+            max-width: 700px;
+            margin: 1rem auto 0;
+        }
+        
+        /* About Section */
+        .about-content {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        /* Research Lines */
+        .research-lines {
+            background-color: var(--light);
+        }
+        
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .card-icon {
+            background-color: var(--primary);
+            color: white;
+            font-size: 2rem;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        .card-content {
+            padding: 1.5rem;
+        }
+        
+        .card h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        /* Techniques */
+        .techniques-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .technique {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+        
+        .technique i {
+            font-size: 3rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+        
+        /* Location */
+        .location-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        
+        .address {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .address h3 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .map {
+            height: 300px;
+            background-color: var(--light-gray);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        /* Team & Collaborators */
+        .team-section {
+            background-color: var(--light);
+        }
+        
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .tab-btn {
+            padding: 0.8rem 1.5rem;
+            background-color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--gray);
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .tab-btn.active {
+            color: var(--primary);
+            border-bottom: 3px solid var(--accent);
+        }
+        
+        .tab-btn:hover:not(.active) {
+            color: var(--dark);
+            background-color: var(--light-gray);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .team-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        
+        .team-member {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .member-header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        .member-header h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .member-header p {
+            font-style: italic;
+            opacity: 0.9;
+        }
+        
+        .member-content {
+            padding: 1.5rem;
+        }
+        
+        .member-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .member-links a {
+            color: var(--primary);
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+        
+        .member-links a:hover {
+            color: var(--accent);
+        }
+        
+        /* Publications Page */
+        .publications-page {
+            background-color: var(--light);
+        }
+        
+        .publications-container {
+            max-height: 70vh;
+            overflow-y: auto;
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .publication-item {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--light-gray);
+        }
+        
+        .publication-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .publication-item h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .publication-item .authors {
+            font-style: italic;
+            color: var(--gray);
+            margin-bottom: 0.5rem;
+        }
+        
+        .publication-item .journal {
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+        
+        .publication-item .doi {
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+            word-break: break-all;
+        }
+        
+        .publication-item .links a {
+            color: var(--primary);
+            text-decoration: none;
+            margin-right: 1rem;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            padding: 0.3rem 0.8rem;
+            background-color: var(--light-gray);
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+        
+        .publication-item .links a:hover {
+            background-color: var(--primary);
+            color: white;
+            text-decoration: none;
+        }
+        
+        .year-header {
+            background-color: var(--primary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            margin: 2rem 0 1rem;
+            display: inline-block;
+            font-weight: bold;
+        }
+        
+        .search-container {
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        
+        .search-container input {
+            width: 100%;
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            border: 1px solid var(--light-gray);
+            font-size: 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .search-container i {
+            position: absolute;
+            right: 1.2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+        }
+        
+        .year-filter {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .year-btn {
+            padding: 0.5rem 1rem;
+            background-color: white;
+            border: 1px solid var(--light-gray);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .year-btn:hover, .year-btn.active {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 2rem;
+            color: var(--gray);
+            font-style: italic;
+        }
+        
+        /* Alumni */
+        .alumni-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .alumni-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .alumni-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .alumni-card .initials {
+            display: inline-block;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            color: white;
+            font-size: 2.5rem;
+            line-height: 100px;
+            margin: 0 auto 1rem;
+            font-weight: bold;
+        }
+        
+        .alumni-card h3 {
+            color: var(--primary);
+            margin-bottom: 0.3rem;
+            font-size: 1.2rem;
+        }
+        
+        /* Social Media */
+        .social-media {
+            text-align: center;
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            font-size: 1.8rem;
+            text-decoration: none;
+            transition: transform 0.3s, background-color 0.3s;
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-5px);
+            background-color: var(--accent);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 3rem 0 1.5rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--accent);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 0.5rem;
+            }
+            
+            .location-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .logo h1 {
+                font-size: 1.3rem;
+            }
+            
+            .logo-img {
+                height: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <div class="logo-img">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5MCIgaGVpZ2h0PSI3MSIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSIxMCI+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMTIiIGN5PSI4IiByPSIzIj48L2NpcmNsZT48cGF0aCBkPSJNMTIgMTVhNCA0IDAgMCAwIC00IDRoOGE0IDQgMCAwIDAtNC00eiI+PC9wYXRoPjwvc3ZnPg==" alt="Logo LBF">
+                </div>
+                <div class="logo-text">
+                    <h1>Laboratório de Biofísica de Fungos</h1>
+                    <p>Universidade Federal do Rio de Janeiro</p>
+                </div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#about"><i class="fas fa-home"></i> Início</a></li>
+                    <li><a href="#research"><i class="fas fa-flask"></i> Pesquisa</a></li>
+                    <li><a href="#techniques"><i class="fas fa-tools"></i> Técnicas</a></li>
+                    <li><a href="#location"><i class="fas fa-map-marker-alt"></i> Localização</a></li>
+                    <li><a href="#team"><i class="fas fa-users"></i> Equipe</a></li>
+                    <li><a href="#publications-page"><i class="fas fa-book"></i> Publicações</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-content">
+            <h2>Pesquisa de Excelência em&nbsp;</h2>
+            <h2>Biofísica de Fungos</h2>
+            <p>Investigando a ultraestrutura, molecularidade e funcionalidade da superfície de fungos para entender a relação parasito-hospedeiro</p>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-header">
+                <h2>Sobre o LBF</h2>
+                <p>Conheça nosso laboratório e nossa missão</p>
+            </div>
+            <div class="about-content">
+                <p>O Laboratório Intermediário de Biofísica de Fungos (LBF) vem desenvolvendo uma linha de pesquisa ímpar e multidisciplinar focada na caracterização ultraestrutural, molecular e funcional da superfície de fungos.</p>
+                <br>
+                <p>Nosso objetivo é determinar o curso, a eficácia da infecção e a resposta imune inata contra esses patógenos, visando um melhor entendimento dos aspectos envolvidos na relação parasito-hospedeiro.</p>
+                <br>
+                <p>Combinando técnicas avançadas de biofísica e biologia molecular, buscamos contribuir significativamente para o desenvolvimento de novas estratégias de diagnóstico e tratamento de infecções fúngicas.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Research Lines -->
+    <section id="research" class="research-lines">
+        <div class="container">
+            <div class="section-header">
+                <h2>Linhas de Pesquisa</h2>
+                <p>Nossas principais áreas de investigação científica</p>
+            </div>
+            <div class="cards-container">
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-atom"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Estruturas de Superfície</h3>
+                        <p>Entender como as estruturas de superfícies fúngicas são formadas e moduladas durante o processo infeccioso.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-pills"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Diagnóstico e Tratamento</h3>
+                        <p>Estabelecer novos e mais acurados métodos para o diagnóstico e desenvolvimento de quimioterápicos contra patógenos fúngicos.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Reposicionamento Farmacológico</h3>
+                        <p>Identificar fármacos existentes que possam ter capacidade antifúngica através de reposicionamento farmacológico.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Modelos Físico-Teóricos</h3>
+                        <p>Desenvolver métodos e modelos físico-teóricos que relacionem composição, estrutura e atividade biológica de fungos.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-hand-paper"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Mecanobiologia</h3>
+                        <p>Aplicar a mecanobiologia no estudo da superfície de fungos patogênicos, compreendendo suas implicações na interação parasito-hospedeiro.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Techniques -->
+    <section id="techniques" class="techniques">
+        <div class="container">
+            <div class="section-header">
+                <h2>Técnicas e Metodologias</h2>
+                <p>Principais abordagens metodológicas utilizadas em nossas pesquisas</p>
+            </div>
+            <div class="techniques-grid">
+                <div class="technique">
+                    <i class="fas fa-lightbulb"></i>
+                    <h3>Espalhamento de Luz Dinâmico</h3>
+                    <p>Para análise das propriedades hidrodinâmicas, potencial zeta e viscoelastividade de moléculas biológicas.</p>
+                </div>
+                
+                <div class="technique">
+                    <i class="fas fa-grip-lines"></i>
+                    <h3>Pinças Ópticas</h3>
+                    <p>Para estudo das propriedades mecânicas de estruturas biológicas em nível molecular e celular.</p>
+                </div>
+                
+                <div class="technique">
+                    <i class="fas fa-microscope"></i>
+                    <h3>Microscopia Eletrônica</h3>
+                    <p>Para análise estrutural detalhada de superfícies fúngicas em alta resolução.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location -->
+    <section id="location" class="location">
+        <div class="container">
+            <div class="section-header">
+                <h2>Localização</h2>
+                <p>Visite nosso laboratório na Cidade Universitária</p>
+            </div>
+            <div class="location-content">
+                <div class="address">
+                    <h3><i class="fas fa-map-marker-alt"></i> Endereço</h3>
+                    <p><strong>Laboratório de Biofísica de Fungos (LBF)</strong></p>
+                    <p>Avenida Carlos Chagas Filho, 373</p>
+                    <p>Bloco C, Sala 37</p>
+                    <p>Cidade Universitária</p>
+                    <p>Rio de Janeiro, RJ</p>
+                    <p>CEP: 21941-902</p>
+                </div>
+                <div class="map">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3673.954685957067!2d-43.23246662544184!3d-22.95702804144365!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9bd5a8e4f9c1e9%3A0x4e10e1d3a8d74c3!2sAv.%20Carlos%20Chagas%20Filho%2C%20373%20-%20Cidade%20Universit%C3%A1ria%2C%20Rio%20de%20Janeiro%20-%20RJ%2C%2021941-902!5e0!3m2!1spt-BR!2sbr!4v1715439996682!5m2!1spt-BR!2sbr" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team & Collaborators -->
+    <section id="team" class="team-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Equipe & Colaboradores</h2>
+                <p>Conheça nossos pesquisadores e parceiros científicos</p>
+            </div>
+            
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="current-team">Equipe Atual</button>
+                <button class="tab-btn" data-tab="collaborators">Colaboradores</button>
+                <button class="tab-btn" data-tab="alumni">Alumni</button>
+            </div>
+            
+            <!-- Current Team -->
+            <div id="current-team" class="tab-content active">
+                <div class="team-container">
+                    <!-- Professores -->
+                    <div class="team-member">
+                        <div class="member-header">
+                            <h3>Susana Frasés Carvajal</h3>
+                            <p>Professora</p>
+                        </div>
+                        <div class="member-content">
+                            <p>Especialista em biofísica de superfícies fúngicas e interação patógeno-hospedeiro.</p>
+                            <div class="member-links">
+                                <a href="http://lattes.cnpq.br/2411558438385429" title="Currículo Lattes"><i class="fas fa-file-alt"></i></a>
+                                <a href="https://orcid.org/0000-0001-5875-9886" title="ORCID"><i class="fab fa-orcid"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="team-member">
+                        <div class="member-header">
+                            <h3>Christina Maeda Takiya</h3>
+                            <p>Professora</p>
+                        </div>
+                        <div class="member-content">
+                            <p>Especialista em biologia molecular de fungos e desenvolvimento de terapias antifúngicas.</p>
+                            <div class="member-links">
+                                <a href="http://lattes.cnpq.br/1606566838418875" title="Currículo Lattes"><i class="fas fa-file-alt"></i></a>
+                                <a href="https://orcid.org/0000-0002-8019-628X" title="ORCID"><i class="fab fa-orcid"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Pós-doutores -->
+                    <div class="team-member">
+                        <div class="member-header">
+                            <h3>Dario Corrêa Junior</h3>
+                            <p>Pós-doutor</p>
+                        </div>
+                        <div class="member-content">
+                            <p>Especialista em técnicas de microscopia eletrônica e análise estrutural de fungos.</p>
+                            <div class="member-links">
+                                <a href="http://lattes.cnpq.br/2857080301590305" title="Currículo Lattes"><i class="fas fa-file-alt"></i></a>
+                                <a href="https://orcid.org/0000-0003-2821-4978" title="ORCID"><i class="fab fa-orcid"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="team-member">
+                        <div class="member-header">
+                            <h3>Glauber Ribeiro de Sousa Araujo</h3>
+                            <p>Pós-doutor</p>
+                        </div>
+                        <div class="member-content">
+                            <p>Especialista em técnicas de espalhamento de luz e análise de propriedades mecânicas.</p>
+                            <div class="member-links">
+                                <a href="http://lattes.cnpq.br/8718259166854318" title="Currículo Lattes"><i class="fas fa-file-alt"></i></a>
+                                <a href="https://orcid.org/0000-0002-5478-9006" title="ORCID"><i class="fab fa-orcid"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Doutorandos -->
+                    <div class="team-member">
+                        <div class="member-header">
+                            <h3>Vinicius Alves do Nascimento</h3>
+                            <p>Doutorando</p>
+                        </div>
+                        <div class="member-content">
+                            <p>Desenvolvendo pesquisa em biofísica de superfícies fúngicas.</p>
+                            <div class="member-links">
+                                <a href="http://lattes.cnpq.br/4366571703477587" title="Currículo Lattes"><i class="fas fa-file-alt"></i></a>
+                                <a href="https://orcid.org/0000-0002-8541-3183" title="ORCID"><i class="fab fa-orcid"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Mestrandos -->
+                    <div class="team-member">
+                        <div class="member-header">
+                            <h3>Mariana Brito Barbieri</h3>
+                            <p>Mestranda</p>
+                        </div>
+                        <div class="member-content">
+                            <p>Pesquisa em caracterização molecular de fungos patogênicos.</p>
+                            <div class="member-links">
+                                <a href="http://lattes.cnpq.br/1866435864910830" title="Currículo Lattes"><i class="fas fa-file-alt"></i></a>
+                                <a href="https://orcid.org/0009-0007-3571-554X" title="ORCID"><i class="fab fa-orcid"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="team-member">
+                        <div class="member-header">
+                            <h3>Marcus Vinicius de Araujo Rodrigues</h3>
+                            <p>Mestrando</p>
+                        </div>
+                        <div class="member-content">
+                            <p>Estudo de novas estratégias de diagnóstico fúngico.</p>
+                            <div class="member-links">
+                                <a href="http://lattes.cnpq.br/1941576963057313" title="Currículo Lattes"><i class="fas fa-file-alt"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="team-member">
+                        <div class="member-header">
+                            <h3>Andreza Estanislau Bastos</h3>
+                            <p>Mestranda</p>
+                        </div>
+                        <div class="member-content">
+                            <p>Pesquisa em mecanobiologia de fungos patogênicos.</p>
+                            <div class="member-links">
+                                <a href="http://lattes.cnpq.br/5093220289791108" title="Currículo Lattes"><i class="fas fa-file-alt"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Iniciação Científica -->
+                    <div class="team-member">
+                        <div class="member-header">
+                            <h3>Matheus Schmitt Müller Rezende</h3>
+                            <p>Iniciação Científica</p>
+                        </div>
+                        <div class="member-content">
+                            <p>Estágio em técnicas de biofísica aplicada a fungos.</p>
+                            <div class="member-links">
+                                <a href="http://lattes.cnpq.br/4690771575216169" title="Currículo Lattes"><i class="fas fa-file-alt"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="team-member">
+                        <div class="member-header">
+                            <h3>Tânia Rodrigues Alves</h3>
+                            <p>Iniciação Científica</p>
+                        </div>
+                        <div class="member-content">
+                            <p>Estágio em microbiologia e análise estrutural.</p>
+                            <div class="member-links">
+                                <a href="http://lattes.cnpq.br/9962424619775915" title="Currículo Lattes"><i class="fas fa-file-alt"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="team-member">
+                        <div class="member-header">
+                            <h3>Igor de Avellar Guimarães de Moura</h3>
+                            <p>Iniciação Científica</p>
+                        </div>
+                        <div class="member-content">
+                            <p>Estágio em modelagem físico-teórica de fungos.</p>
+                            <div class="member-links">
+                                <a href="http://lattes.cnpq.br/9823397099971684" title="Currículo Lattes"><i class="fas fa-file-alt"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Collaborators -->
+            <div id="collaborators" class="tab-content">
+                <div class="team-container">
+                    <div class="team-member">
+                        <div class="member-header">
+                            <h3>Rodrigo Almeida-Paes</h3>
+                            <p>Fiocruz</p>
+                        </div>
+                        <div class="member-content">
+                            <p>Especialista em micologia médica e diagnóstico de infecções fúngicas.</p>
+                            <div class="member-links">
+                                <a href="http://lattes.cnpq.br/1957533227438578" title="Currículo Lattes"><i class="fas fa-file-alt"></i></a>
+                                <a href="https://orcid.org/0000-0003-0510-0840" title="ORCID"><i class="fab fa-orcid"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="team-member">
+                        <div class="member-header">
+                            <h3>Arturo Casadevall</h3>
+                            <p>Johns Hopkins University</p>
+                        </div>
+                        <div class="member-content">
+                            <p>Especialista em imunologia de fungos e desenvolvimento de vacinas.</p>
+                            <div class="member-links">
+                                <a href="https://publichealth.jhu.edu/faculty/86/arturo-casadevall" title="Perfil"><i class="fas fa-globe"></i></a>
+                                <a href="https://orcid.org/0000-0002-2605-6388" title="ORCID"><i class="fab fa-orcid"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="team-member">
+                        <div class="member-header">
+                            <h3>Marcio L. Rodrigues</h3>
+                            <p>Fiocruz</p>
+                        </div>
+                        <div class="member-content">
+                            <p>Especialista em biologia de fungos patogênicos e vesículas extracelulares.</p>
+                            <div class="member-links">
+                                <a href="http://lattes.cnpq.br/0446564025725071" title="Currículo Lattes"><i class="fas fa-file-alt"></i></a>
+                                <a href="https://orcid.org/0000-0001-9380-6811" title="ORCID"><i class="fab fa-orcid"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Alumni -->
+            <div id="alumni" class="tab-content">
+                <div class="alumni-grid">
+                    <div class="alumni-card">
+                        <div class="initials">BA</div>
+                        <h3>Bruna Arcoverde</h3>
+                    </div>
+                    
+                    <div class="alumni-card">
+                        <div class="initials">BM</div>
+                        <h3>Bruna de Araújo Miranda</h3>
+                    </div>
+                    
+                    <div class="alumni-card">
+                        <div class="initials">CN</div>
+                        <h3>Caroline Muiler Barbosa Nogueira</h3>
+                    </div>
+                    
+                    <div class="alumni-card">
+                        <div class="initials">DC</div>
+                        <h3>Daniel Da Fonseca Costa Campelo</h3>
+                    </div>
+                    
+                    <div class="alumni-card">
+                        <div class="initials">GP</div>
+                        <h3>Guilherme Luiz Pinheiro</h3>
+                    </div>
+                    
+                    <div class="alumni-card">
+                        <div class="initials">GM</div>
+                        <h3>Gustavo Dornelles Machado</h3>
+                    </div>
+                    
+                    <div class="alumni-card">
+                        <div class="initials">IA</div>
+                        <h3>Iara Bastos de Andrade</h3>
+                    </div>
+                    
+                    <div class="alumni-card">
+                        <div class="initials">JS</div>
+                        <h3>Julia R S Salles</h3>
+                    </div>
+                    
+                    <div class="alumni-card">
+                        <div class="initials">KP</div>
+                        <h3>Karini Castro Passos</h3>
+                    </div>
+                    
+                    <div class="alumni-card">
+                        <div class="initials">LG</div>
+                        <h3>Luiza Giglio Pereira</h3>
+                    </div>
+                    
+                    <div class="alumni-card">
+                        <div class="initials">MR</div>
+                        <h3>Mariana Lucy Mesquita Ramos</h3>
+                    </div>
+                    
+                    <div class="alumni-card">
+                        <div class="initials">PS</div>
+                        <h3>Pedro Henrique Martins de Souza</h3>
+                    </div>
+                    
+                    <div class="alumni-card">
+                        <div class="initials">RC</div>
+                        <h3>Raquel Ferreira Da Costa Corrêa</h3>
+                    </div>
+                    
+                    <div class="alumni-card">
+                        <div class="initials">RC</div>
+                        <h3>Raquel Soares Da Cunha</h3>
+                    </div>
+                    
+                    <div class="alumni-card">
+                        <div class="initials">VR</div>
+                        <h3>Victor Rodrigues</h3>
+                    </div>
+                    
+                    <div class="alumni-card">
+                        <div class="initials">VC</div>
+                        <h3>Vinicius Crahim</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Publications Page -->
+    <section id="publications-page" class="publications-page">
+        <div class="container">
+            <div class="section-header">
+                <h2>Publicações Científicas</h2>
+                <p>193 publicações científicas do Laboratório de Biofísica de Fungos</p>
+            </div>
+            
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="Buscar por título, autor ou palavra-chave...">
+                <i class="fas fa-search"></i>
+            </div>
+            
+            <div class="year-filter" id="year-filter-container">
+                <!-- Year buttons will be dynamically generated here -->
+            </div>
+            
+            <div class="publications-container">
+                <!-- Publications will be dynamically inserted here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Media -->
+    <section class="social-media">
+        <div class="container">
+            <div class="section-header">
+                <h2>Conecte-se Conosco</h2>
+                <p>Acompanhe nossas atividades e publicações</p>
+            </div>
+            <div class="social-icons">
+                <a href="https://www.instagram.com/labiofun?igsh=M2lwenZkMWkzNW5i" class="social-icon" target="_blank">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://www.linkedin.com/company/laborat%C3%B3rio-de-biof%C3%ADsica-de-fungos/" class="social-icon" target="_blank">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Laboratório de Biofísica de Fungos</h3>
+                    <p>Desenvolvendo pesquisas de ponta para compreender a relação parasito-hospedeiro e desenvolver novas estratégias de combate a infecções fúngicas.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Links Rápidos</h3>
+                    <ul class="footer-links">
+                        <li><a href="#about"><i class="fas fa-arrow-right"></i> Sobre o LBF</a></li>
+                        <li><a href="#research"><i class="fas fa-arrow-right"></i> Linhas de Pesquisa</a></li>
+                        <li><a href="#techniques"><i class="fas fa-arrow-right"></i> Técnicas</a></li>
+                        <li><a href="#location"><i class="fas fa-arrow-right"></i> Localização</a></li>
+                        <li><a href="#team"><i class="fas fa-arrow-right"></i> Equipe</a></li>
+                        <li><a href="#publications-page"><i class="fas fa-arrow-right"></i> Publicações</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contato</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> Av. Carlos Chagas Filho, 373 - Bloco C, Sala 37</li>
+                        <li><i class="fas fa-phone"></i> (21) 3938-6541</li>
+                        <li><i class="fas fa-envelope"></i> contato@lbf.ufrj.br</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 Laboratório de Biofísica de Fungos (LBF). Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Tab functionality
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons and contents
+                tabBtns.forEach(btn => btn.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
+                
+                // Add active class to clicked button and corresponding content
+                btn.classList.add('active');
+                const tabId = btn.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+        
+        // Generate initials for alumni
+        document.querySelectorAll('.initials').forEach(el => {
+            const name = el.nextElementSibling.textContent;
+            const names = name.split(' ');
+            let initials = '';
+            
+            if (names.length >= 2) {
+                initials = names[0].charAt(0) + names[names.length - 1].charAt(0);
+            } else if (names.length === 1) {
+                initials = names[0].charAt(0);
+            }
+            
+            el.textContent = initials;
+        });
+        
+        // Publications data (193 publications)
+        const publications = [
+            // 2025
+            {
+                title: "Urban Mangroves Under Threat: Metagenomic Analysis Reveals a Surge in Human and Plant Pathogenic Fungi",
+                authors: "BRITTO MARTINS DE OLIVEIRA, JULIANA; BARBIERI, MARIANA; CORRÊA-JUNIOR, DARIO; SCHMITT, MATHEUS; SANTOS, LUANA LESSA R.; BAHIA, ANA C.; PARENTE, CLÁUDIO ERNESTO TAVEIRA; Frases, Susana; FRASES, S.",
+                journal: "PATHOGENS, 2025, 14, 759",
+                doi: "10.3390/pathogens14080759",
+                year: 2025
+            },
+            {
+                title: "Science, Industry, and the Forgotten Guardians of Amazonian Knowledge",
+                authors: "BARBIERI, MARIANA; Frases, Susana; FRASES, S.",
+                journal: "Journal of Biomedical Sciences and Biotechnology Research, 2025, 3, 1-3",
+                doi: "10.61440/JBSBR.2025.v3.25",
+                year: 2025
+            },
+            {
+                title: "Neurobasal medium enhances titan cell formation in Cryptococcus spp.",
+                authors: "GODOY, J.; Igor Avellar-Moura; Juliana Soares; Pontes, B.; FRASÉS, SUSANA",
+                journal: "Memórias do Instituto Oswaldo Cruz, 2025, 120, 1",
+                doi: "10.1590/0074-02760240286",
+                year: 2025
+            },
+            {
+                title: "Impact of sodium lactate as a carbon source in the polysaccharide of Cryptococcus species",
+                authors: "RODRIGUES, MARCUS; ARAÚJO, GLAUBER R. DE S.; ALVES, VINICIUS; Frases, Susana; FRASES, S.",
+                journal: "Academia Molecular Biology and Genomics, 2025, 2, 1",
+                doi: "10.20935/AcadMolBioGen7675",
+                year: 2025
+            },
+            {
+                title: "Fungi in Mangrove: Ecological Importance, Climate Change Impacts, and the Role in Environmental Remediation",
+                authors: "BRITTO MARTINS DE OLIVEIRA, JULIANA; CORRÊA JUNIOR, DARIO; PARENTE, CLÁUDIO ERNESTO TAVEIRA; Frases, Susana; FRASES, S.",
+                journal: "Microorganisms, 2025, 13, 878",
+                doi: "10.3390/microorganisms13040878",
+                year: 2025
+            },
+            {
+                title: "Fungal Metabolomics: A Comprehensive Approach to Understanding Pathogenesis in Humans and Identifying Potential Therapeutics",
+                authors: "ALVES, VINICIUS; ZAMITH-MIRANDA, DANIEL; Frases, Susana; FRASES, S.; Nosanchuk, Joshua D.",
+                journal: "JOURNAL OF FUNGI, 2025, 11, 93",
+                doi: "10.3390/jof11020093",
+                year: 2025
+            },
+            {
+                title: "Fungal Biotechnology Applications in Sustainable Oil Extraction",
+                authors: "BARBIERI, MARIANA B.; CORRÊA JUNIOR, DARIO; Frases, Susana; FRASES, S.",
+                journal: "Applied Microbiology, 2025, 5, 8",
+                doi: "10.3390/applmicrobiol5010008",
+                year: 2025
+            },
+            {
+                title: "Drug Interactions of Antifungal Agents: Clinical Relevance and Implications",
+                authors: "CORRÊA-JUNIOR, DARIO; Frases, Susana; FRASES, S.; DE S. ARAÚJO, GLAUBER R.",
+                journal: "CURRENT TROPICAL MEDICINE REPORTS, 2025, 12, 3",
+                doi: "10.1007/s40475-024-00336-w",
+                year: 2025
+            },
+            // 2024
+            {
+                title: "Toll-like receptor 4 (TLR4) is the major pattern recognition receptor triggering the protective effect of a Candida albicans</i> extracellular vesicle-based vaccine prototype in murine systemic candidiasis",
+                authors: "HONORATO, LEANDRO; KORNETZ, JULIO; Rodrigues, Marcio L.; CUNNINGHAM, IAIN; GOW, NEIL A. R.; GACSER, ATTILA; Guimarães, Allan J.; DUTRA, FABIANNO F.; Nimrichter, Leonardo; BONILLA, JHON J. ARTUNDUAGA; VALDEZ, ALESSANDRO F.; Frases, Susana; FRASES, S.; ARAÚJO, GLAUBER RIBEIRO DE SOUSA; SABINO, ALBANIZA LIUANE RIBEIRO DO NASCIMENTO; DA SILVA, NATALIA MARTINS; RIBEIRO, LARISSA; FERREIRA, MARINA DA SILVA",
+                journal: "mSphere, 2024, 1, 1",
+                doi: "10.1128/msphere.00467-24",
+                year: 2024
+            },
+            {
+                title: "The biofilm produced by Cryptococcus neoformans protects the fungus from the antifungal and anti-melanin effects of cyclosporine",
+                authors: "ANDRADE, IARA BASTOS DE; Frases, Susana; FRASES, S.; ALVES, VINÍCIUS; CORREA-JUNIOR, DARIO; AVELLAR-MOURA, IGOR; SOARES, JULIANA; SOUSA ARAÚJO, GLAUBER RIBEIRO DE; Pontes, Bruno; Nosanchuk, Joshua D.; Almeida-Paes, Rodrigo",
+                journal: "MICROBIAL PATHOGENESIS, 2024, 1, 107124",
+                doi: "10.1016/j.micpath.2024.107124",
+                year: 2024
+            },
+            {
+                title: "Revealing the impact of Rapamycin on the Virulence Factors of the Candida haemulonii Complex",
+                authors: "ALVES, VINICIUS; Frases, Susana; FRASES, S.; DE ANDRADE, IARA BASTOS; CORRÊA-JUNIOR, DARIO; AVELLAR-MOURA, IGOR; PASSOS, KARINI; SOARES, JULIANA; Pontes, Bruno; ALMEIDA, MARCOS ABREU; Almeida-Paes, Rodrigo",
+                journal: "Current Research in Microbial Sciences, 2024, 1, 100247",
+                doi: "10.1016/j.crmicr.2024.100247",
+                year: 2024
+            },
+            {
+                title: "Photodynamic therapy reduces viability, enhances itraconazole activity, and impairs mitochondrial physiology of Sporothrix brasiliensis",
+                authors: "RAMOS, MARIANA LUCY MESQUITA; BARRINHA, AZUIL; SOUSA ARAÚJO, GLAUBER RIBEIRO DE; ALVES, VINICIUS; ANDRADE, IARA BASTOS DE; CORRÊA-JUNIOR, DARIO; MACHADO MOTTA, MARIA CRISTINA; Almeida-Paes, Rodrigo; Frases, Susana; FRASES, S.",
+                journal: "MICROBES AND INFECTION, 2024, 1, 105440",
+                doi: "10.1016/j.micinf.2024.105440",
+                year: 2024
+            },
+            {
+                title: "In vitro antifungal activity of MMV Pathogen Box® compounds, alone or in combination with antifungal drugs, against mucormycosis agents",
+                authors: "ALMEIDA-SILVA, FERNANDO; TENÓRIO-ALVARENGA, PEDRO HENRIQUE; DA COSTA, RAIANE VALLE; COELHO, ROWENA ALVES; DE SOUSA ARAÚJO, GLAUBER RIBEIRO; Zancopé-Oliveira, Rosely Maria; Frases, Susana; FRASES, S.; Almeida-Paes, Rodrigo",
+                journal: "Current Research in Microbial Sciences, 2024, 1, 100242",
+                doi: "10.1016/j.crmicr.2024.100242",
+                year: 2024
+            },
+            {
+                title: "In vitro activity of the anthelmintic drug niclosamide against Sporothrix spp. strains with distinct genetic and antifungal susceptibility backgrounds",
+                authors: "RAMOS, MARIANA LUCY MESQUITA; Zancopé-Oliveira, Rosely Maria; Frases, Susana; FRASES, S.; Almeida-Paes, Rodrigo; ALMEIDA-SILVA, FERNANDO; DE SOUZA RABELLO, VANESSA BRITO; NAHAL, JULIANA; FIGUEIREDO-CARVALHO, MARIA HELENA GALDINO; BERNARDES-ENGEMANN, ANDREA REIS; POESTER, VANICE RODRIGUES; XAVIER, MELISSA ORZECHOWSKI; MEYER, WIELAND",
+                journal: "BRAZILIAN JOURNAL OF MICROBIOLOGY, 2024, 1, 1",
+                doi: "10.1007/s42770-024-01301-5",
+                year: 2024
+            },
+            {
+                title: "Hazards Associated with the Combined Application of Fungicides and Poultry Litter in Agricultural Areas",
+                authors: "CORRÊA-JUNIOR, DARIO; PARENTE, CLÁUDIO ERNESTO TAVEIRA; Frases, Susana; FRASES, S.",
+                journal: "Journal of Xenobiotics, 2024, 14, 110-134",
+                doi: "10.3390/jox14010007",
+                year: 2024
+            },
+            {
+                title: "Beyond conventional approaches: Enhancing photodynamic therapy for refractory feline sporotrichosis caused by Sporothrix brasiliensis",
+                authors: "MESQUITA RAMOS, MARIANA LUCY; DE SOUZA RABELLO, VANESSA BRITO; RIBEIRO DA SILVA, ERICA APARECIDA DOS SANTOS; DA SILVA LOURENÇO, MARIA CRISTINA; Almeida-Paes, Rodrigo; Frases, Susana; FRASES, S.",
+                journal: "MEDICAL MYCOLOGY CASE REPORTS, 2024, 1, 100642",
+                doi: "10.1016/j.mmcr.2024.100642",
+                year: 2024
+            },
+            {
+                title: "Auranofin is active against Histoplasma capsulatum and reduces the expression of virulence-related genes",
+                authors: "DE ABREU ALMEIDA, MARCOS; Zancopé-Oliveira, Rosely Maria; ALANIO, ALEXANDRE; TABORDA, CARLOS PELLESCHI; Almeida-Paes, Rodrigo; BAEZA, LILIAN CRISTIANE; SILVA, LEANDRO B. R.; BERNARDES-ENGEMANN, ANDRÉA REIS; ALMEIDA-SILVA, FERNANDO; COELHO, ROWENA ALVES; DE ANDRADE, IARA BASTOS; CORRÊA-JUNIOR, DARIO; Frases, Susana; FRASES, S.",
+                journal: "PLoS Neglected Tropical Diseases, 2024, 18, e0012586",
+                doi: "10.1371/journal.pntd.0012586",
+                year: 2024
+            },
+            // 2023
+            {
+                title: "Unveiling the Morphostructural Plasticity of Zoonotic Sporotrichosis Fungal Strains: Possible Implications for Sporothrix brasiliensis Virulence and Pathogenicity",
+                authors: "CORRÊA-JUNIOR, DARIO; Almeida-Paes, Rodrigo; Frases, Susana; FRASES, S.; DE ANDRADE, IARA BASTOS DE; ALVES, VINICIUS; AVELLAR-MOURA, IGOR; DE SOUZA RABELL, VANESSA BRITO DE SOUZA; VALDEZ, ALESSANDRO FERNANDES; Nimrichter, Leonardo; Zancopé-Oliveira, Rosely Maria; R. DE SOUSA ARAUJO, GLAUBER R. DE S.",
+                journal: "JOURNAL OF FUNGI, 2023, 9, 701",
+                doi: "10.3390/jof9070701",
+                year: 2023
+            },
+            {
+                title: "Traversing the Cell Wall: The Chitinolytic Activity of Histoplasma capsulatum Extracellular Vesicles Facilitates Their Release",
+                authors: "VALDEZ, ALESSANDRO F.; FILL, TAICIA PACHECO; ESTEVAO, IGOR L.; TORRES, ANGEL; Almeida, Igor C.; Nosanchuk, Joshua D.; Nimrichter, Leonardo; DE SOUZA, TAIANE NASCIMENTO; BONILLA, JHON JHAMILTON ARTUNDUAGA; ZAMITH-MIRANDA, DANIEL; PIFFER, ALICIA CORBELLINI; ARAUJO, GLAUBER R. S.; Guimarães, Allan J.; Frases, Susana; FRASES, S.; PEREIRA, ALANA KELYENE",
+                journal: "JOURNAL OF FUNGI, 2023, 9, 1052",
+                doi: "10.3390/jof9111052",
+                year: 2023
+            },
+            {
+                title: "Repurposing drugs for fungal infections: advantages and limitations",
+                authors: "Almeida-Paes, Rodrigo; Frases, Susana; FRASES, S.",
+                journal: "Future Microbiology, 2023, 1, 1",
+                doi: "10.2217/fmb-2023-0108",
+                year: 2023
+            },
+            {
+                title: "Phospholipase B Is Critical for Cryptococcus neoformans Survival in the Central Nervous System",
+                authors: "HAMED, MOHAMED F.; ARAÚJO, GLAUBER RIBEIRO DE SOUSA; MUNZEN, MELISSA E.; REGUERA-GOMEZ, MARTA; EPSTEIN, CARLY; LEE, HIU HAM; Frases, Susana; FRASES, S.; Martinez, Luis R.",
+                journal: "mBio, 2023, 1, 1",
+                doi: "10.1128/mbio.02640-22",
+                year: 2023
+            },
+            {
+                title: "Off-label treatments as potential accelerators in the search for the ideal antifungal treatment of cryptococcosis",
+                authors: "ALVES, VINICIUS; ARAÚJO, GLAUBER RS; Frases, Susana; FRASES, S.",
+                journal: "Future Microbiology, 2023, 1, 1",
+                doi: "10.2217/fmb-2022-0122",
+                year: 2023
+            },
+            {
+                title: "New drugs and other strategies for the treatment of fungal infections",
+                authors: "Almeida-Paes, Rodrigo; Frases, Susana; FRASES, S.",
+                journal: "Future Microbiology, 2023, 1, 1",
+                doi: "10.2217/fmb-2023-0169",
+                year: 2023
+            },
+            {
+                title: "Metabolic Plasticity and Virulence-Associated Factors of Sporothrix brasiliensis Strains Related to Familiar Outbreaks of Cat-to-Human Transmitted Sporotrichosis",
+                authors: "CORRÊA-JUNIOR, DARIO; Almeida-Paes, Rodrigo; Frases, Susana; FRASES, S.; DE ANDRADE, IARA BASTOS; ALVES, VINICIUS; AVELLAR-MOURA, IGOR; RODRIGUES-ALVES, TÂNIA; DE SOUZA RABELLO, VANESSA BRITO; DE S. ARAÚJO, GLAUBER R.; BORBA-SANTOS, LUANA PEREIRA; Zancopé-Oliveira, Rosely Maria",
+                journal: "JOURNAL OF FUNGI, 2023, 9, 724",
+                doi: "10.3390/jof9070724",
+                year: 2023
+            },
+            {
+                title: "Metabolic and morphostructural plasticity of environmental and animal strains of Nannizzia gypsea",
+                authors: "CORRÊA-JUNIOR, DARIO; AVELLAR-MOURA, IGOR; DE S ARAÚJO, GLAUBER R; DE ANDRADE, IARA BASTOS; ALMEIDA-SILVA, FERNANDO; RAMOS, MARIANA LUCY MESQUITA; Almeida-Paes, Rodrigo; Frases, Susana; FRASES, S.",
+                journal: "MEDICAL MYCOLOGY, 2023, 1, 1",
+                doi: "10.1093/mmy/myad044",
+                year: 2023
+            },
+            {
+                title: "Mebendazole Inhibits Histoplasma capsulatum In Vitro Growth and Decreases Mitochondrion and Cytoskeleton Protein Levels",
+                authors: "ALMEIDA, MARCOS ABREU; RODRIGUES, MÁRCIO LOURENÇO; VALENTE, RICHARD HEMMI; Zancopé-Oliveira, Rosely Maria; Almeida-Paes, Rodrigo; BERNARDES-ENGEMANN, ANDREA REIS; COELHO, ROWENA ALVES; LUGONES, CAMILA JANTORO GUZMAN; DE ANDRADE, IARA BASTOS; CORRÊA-JUNIOR, DARIO; DE OLIVEIRA, SIMONE SANTIAGO CARVALHO; DOS SANTOS, ANDRÉ LUIS SOUZA; Frases, Susana; FRASES, S.",
+                journal: "JOURNAL OF FUNGI, 2023, 9, 385",
+                doi: "10.3390/jof9030385",
+                year: 2023
+            },
+            {
+                title: "Interfacing manganese-based carbonaceous nanocomposites with plasma components: insights on protein interaction, structure and opsonization",
+                authors: "SANCHEZ GARCIA, YARIMA; MENEZES, THAIS MEIRA; RODRIGUES BARROS, MARCELA; MARTINS DA SILVA, ELIZABETH; TAVARES VENTURA, GUSTAVO; Frases, Susana; FRASES, S.; TODESCHINI, ADRIANE REGINA; LUIZ NEVES, JORGE",
+                journal: "JOURNAL OF BIOMOLECULAR STRUCTURE & DYNAMICS, 2023, 1, 1-9",
+                doi: "10.1080/07391102.2023.2195943",
+                year: 2023
+            },
+            {
+                title: "In vitro</i> isavuconazole activity against Sporothrix brasiliensis</i> suggests its efficacy in some severe sporotrichosis cases",
+                authors: "ALMEIDA-SILVA, FERNANDO; Almeida-Paes, Rodrigo; COELHO, ROWENA A; BERNARDES-ENGEMANN, ANDRÉA R; FICHMAN, VIVIAN; FREITAS, DAYVISON FS; GALHARDO, MARIA CG; CORRÊA-JUNIOR, DARIO; Frases, Susana; FRASES, S.; ZANCOPÉ-OLIVEIRA, ROSELY M",
+                journal: "Future Microbiology, 2023, 1, 1",
+                doi: "10.2217/fmb-2023-0094",
+                year: 2023
+            },
+            {
+                title: "Effect of rapamycin on Cryptococcus neoformans</i> : cellular organization, biophysics and virulence factors",
+                authors: "DE ANDRADE, IARA BASTOS; ALVES, VINICIUS; PEREIRA, LUIZA; MIRANDA, BRUNA; CORRÊA-JUNIOR, DARIO; GALDINO FIGUEIREDO-CARVALHO, MARIA HELENA; SANTOS, MARCOS VINICIUS; Almeida-Paes, Rodrigo; Frases, Susana; FRASES, S.",
+                journal: "Future Microbiology, 2023, 1, 1",
+                doi: "10.2217/fmb-2023-0097",
+                year: 2023
+            },
+            {
+                title: "Cyclosporine Affects the Main Virulence Factors of Cryptococcus neoformans In Vitro",
+                authors: "DE ANDRADE, IARA BASTOS; Frases, Susana; FRASES, S.; CORRÊA-JUNIOR, DARIO; ALVES, VINICIUS; FIGUEIREDO-CARVALHO, MARIA HELENA GALDINO; SANTOS, MARCOS VINICIUS; ALMEIDA, MARCOS ABREU; VALDEZ, ALESSANDRO FERNANDES; Nimrichter, Leonardo; Almeida-Paes, Rodrigo",
+                journal: "JOURNAL OF FUNGI, 2023, 9, 487",
+                doi: "10.3390/jof9040487",
+                year: 2023
+            },
+            {
+                title: "Comparative Analysis of Capsular and Secreted Polysaccharides Produced by Rhodotorula mucilaginosa and Cryptococcus neoformans",
+                authors: "DORNELLES, GUSTAVO; ARAÚJO, GLAUBER R. DE S.; RODRIGUES, MARCUS; ALVES, VINICIUS; Almeida-Paes, Rodrigo; Frases, Susana; FRASES, S.",
+                journal: "JOURNAL OF FUNGI, 2023, 9, 1124",
+                doi: "10.3390/jof9111124",
+                year: 2023
+            },
+            {
+                title: "Assessing the In Vitro Potential of Glatiramer Acetate (Copaxone®) as a Chemotherapeutic Candidate for the Treatment of Cryptococcus neoformans Infection",
+                authors: "ALVES, VINICIUS; MARTINS, PEDRO HENRIQUE; MIRANDA, BRUNA; DE ANDRADE, IARA BASTOS; PEREIRA, LUIZA; MAEDA, CHRISTINA TAKIYA; DE SOUSA ARAÚJO, GLAUBER RIBEIRO; Frases, Susana; FRASES, S.",
+                journal: "JOURNAL OF FUNGI, 2023, 9, 783",
+                doi: "10.3390/jof9080783",
+                year: 2023
+            },
+            {
+                title: "A Review on Sporotrichosis and the Emergence of Sporothrix brasiliensis as a Pathogen",
+                authors: "VALDEZ, ALESSANDRO F.; CORRÊA-JUNIOR, DARIO; BONILLA, JHON JHAMILTON ARTUNDUAGA; ZAMITH-MIRANDA, DANIEL; Frases, Susana; FRASES, S.; FREITAS, DAYVISON FRANCIS SARAIVA; Almeida-Paes, Rodrigo; Nimrichter, Leonardo; Nosanchuk, Joshua D.",
+                journal: "CURRENT TROPICAL MEDICINE REPORTS, 2023, 1, 1",
+                doi: "10.1007/s40475-023-00297-6",
+                year: 2023
+            },
+            // 2022
+            {
+                title: "Vaccination with Live or Heat-Killed Aspergillus fumigatus - sglA</i> Conidia Fully Protects Immunocompromised Mice from Invasive Aspergillosis",
+                authors: "FERNANDES, CAROLINE MOTA; NORMILE, TYLER G.; FABRI, JOAO HENRIQUE TADINI MARILHANO; BRAUER, VERONICA SOARES; DE S. ARAÚJO, GLAUBER R.; Frases, Susana; FRASES, S.; Nimrichter, Leonardo; MALAVAZI, IRAN; DEL POETA, MAURIZIO",
+                journal: "mBio, 2022, 1, 1",
+                doi: "10.1128/mbio.02328-22",
+                year: 2022
+            },
+            {
+                title: "The Dynamics of Cryptococcus neoformans Cell and Transcriptional Remodeling during Infection",
+                authors: "FREITAS, GUSTAVO J. C.; SOSSAI, BRUNNO G.; CAZA, MELISSA; KRONSTAD, JAMES W.; PERES, NALU T. A.; SANTOS, DANIEL A.; GOUVEIA-EUFRASIO, LUDMILA; EMIDIO, ELUZIA C. P.; CARNEIRO, HELLEM C. S.; DE MATOS BALTAZAR, LUDMILA; COSTA, MARLIETE C.; Frases, Susana; FRASES, S.; DE SOUSA ARAÚJO, GLAUBER R.; PAIXÃO, TATIANE A.",
+                journal: "Cells, 2022, 11, 3896",
+                doi: "10.3390/cells11233896",
+                year: 2022
+            },
+            {
+                title: "Screening of Pandemic Response Box Library Reveals the High Activity of Olorofim against Pathogenic Sporothrix Species",
+                authors: "BORBA-SANTOS, LUANA PEREIRA; FERREIRA-PEREIRA, ANTONIO; BARRETO-BERGTER, ELIANA; ROZENTAL, SONIA; ROLLIN-PINHEIRO, RODRIGO; FONTES, YASMIN DA SILVA; DOS SANTOS, GIULIA MARIA PIRES DOS; DE SOUSA ARAÚJO, GLAUBER RIBEIRO DE SOUSA; RODRIGUES, ANDERSON MESSIAS; Guimarães, Allan J.; DE SOUZA, WANDERLEY DE; Frases, Susana; FRASES, S.",
+                journal: "JOURNAL OF FUNGI, 2022, 8, 1004",
+                doi: "10.3390/jof8101004",
+                year: 2022
+            },
+            {
+                title: "New Insights in Dermatophytes: Microsporum spp. and Nannizzia spp.",
+                authors: "JUNIOR, DARIO CORRÊA; RAMOS, MARIANA LUCY MESQUITA; Almeida-Paes, Rodrigo; Frases, Susana; FRASES, S.",
+                journal: "CURRENT TROPICAL MEDICINE REPORTS, 2022, 1, 1",
+                doi: "10.1007/s40475-022-00252-x",
+                year: 2022
+            },
+            {
+                title: "Metabolic and phenotypic plasticity may contribute for the higher virulence of Trichosporon asahii</i> over other Trichosporonaceae members",
+                authors: "DE ANDRADE, IARA BASTOS; FIGUEIREDO'CARVALHO, MARIA HELENA GALDINO; CHAVES, ALESSANDRA LEAL DA SILVA; COELHO, ROWENA ALVES; ALMEIDA'SILVA, FERNANDO; ZANCOPÉ'OLIVEIRA, ROSELY MARIA; Frases, Susana; FRASES, S.; BRITO'SANTOS, FÁBIO; ALMEIDA'PAES, RODRIGO",
+                journal: "MYCOSES, 2022, 1, 1",
+                doi: "10.1111/myc.13562",
+                year: 2022
+            },
+            {
+                title: "Lessons from protozoans: Phosphate sensing and polyphosphate storage in fungi",
+                authors: "VILA, TAISSA; Frases, Susana; FRASES, S.; GOMES, FABIO M.",
+                journal: "PLoS Pathogens, 2022, 18, e1010298",
+                doi: "10.1371/journal.ppat.1010298",
+                year: 2022
+            },
+            {
+                title: "Harris? hawk ( ) as a source of pathogenic human yeasts: a potential risk to human health",
+                authors: "DORNELLES, GUSTAVO; ARAÚJO, GLAUBER RS; RODRIGUES, MARCUS; ALVES, VINICIUS; COSTA, RODRIGO C; ABREU, JUNIOR; FIGUEIREDO-CARVALHO, MARIA HG; Almeida-Paes, Rodrigo; Frases, Susana; FRASES, S.",
+                journal: "Future Microbiology, 2022, 17, 169-175",
+                doi: "10.2217/fmb-2021-0166",
+                year: 2022
+            },
+            {
+                title: "Extracellular Vesicles Regulate Biofilm Formation and Yeast-to-Hypha Differentiation in Candida albicans",
+                authors: "HONORATO, LEANDRO; PEREIRA, MARCOS DIAS; Guimarães, Allan J.; DA SILVA, NATALIA MARTINS; Vargas, Gabriele; JOFFE, LUNA; DEL POETA, MAURIZIO; Nosanchuk, Joshua D.; ZAMITH-MIRANDA, DANIEL; DOS REIS, FLÁVIA COELHO GARCIA; DE OLIVEIRA, HAROLDO CESAR; DE ARAUJO, JOANA FEITAL DEMETRIO; ELLIS, CAMERON C.; PIFFER, ALICIA CORBELLINI; PEREIRA, YAN; Frases, Susana; FRASES, S.; DE SOUSA ARAÚJO, GLAUBER RIBEIRO; Pontes, Bruno; MENDES, MARIA TAYS; et.al",
+                journal: "mBio, 2022, 1, 1",
+                doi: "10.1128/mbio.00301-22",
+                year: 2022
+            },
+            {
+                title: "Comparative Biophysical and Ultrastructural Analysis of Melanins Produced by Clinical Strains of Different Species From the Trichosporonaceae Family",
+                authors: "DE ANDRADE, IARA BASTOS; ARAÚJO, GLAUBER RIBEIRO DE SOUSA; BRITO-SANTOS, FÁBIO; FIGUEIREDO-CARVALHO, MARIA HELENA GALDINO; Zancopé-Oliveira, Rosely Maria; Frases, Susana; FRASES, S.; Almeida-Paes, Rodrigo",
+                journal: "Frontiers in Microbiology, 2022, 13, 1",
+                doi: "10.3389/fmicb.2022.876611",
+                year: 2022
+            },
+            {
+                title: "Clinical Challenges of Emerging and Re-Emerging Yeast Infections in the Context of the COVID-19 Pandemic",
+                authors: "CORRÊA-JUNIOR, DARIO; ANDRADE, IARA BASTOS DE; ALVES, VINICIUS; ARAÚJO, GLAUBER R. DE S.; Frases, Susana; FRASES, S.",
+                journal: "Microorganisms, 2022, 10, 2223",
+                doi: "10.3390/microorganisms10112223",
+                year: 2022
+            },
+            {
+                title: "A water-soluble manganese(II) octanediaoate/phenanthroline complex acts as an antioxidant and attenuates alpha-synuclein toxicity",
+                authors: "QUEIROZ, DANIELA D.; MCCANN, MALACHY; KNOX, ANDREW; DEVEREUX, MICHAEL; OUTEIRO, TIAGO F.; PEREIRA, MARCOS D.; RIBEIRO, THALES P.; GONÇALVES, JULLIANA M.; MATTOS, LARISSA M.M.; GERHARDT, ELLEN; FREITAS, JÚLIA; PALHANO, FERNANDO L.; Frases, Susana; FRASES, S.; PINHEIRO, ANDERSON S.",
+                journal: "BIOCHIMICA ET BIOPHYSICA ACTA-MOLECULAR BASIS OF DISEASE, 2022, 1, 166475",
+                doi: "10.1016/j.bbadis.2022.166475",
+                year: 2022
+            },
+            {
+                title: "'One Health and Dermatophytes, what is the Link Between Them?'",
+                authors: "JUNIOR, DARIO CORRÊA; ALMEIDA-PAES, R.; FRASÉS, SUSANA",
+                journal: "Biomedical Journal of Scientific &amp; Technical Research, 2022, 44, 1",
+                doi: "10.26717/BJSTR.2022.44.006995",
+                year: 2022
+            },
+            // 2021
+            {
+                title: "Ultrastructural Study of Cryptococcus neoformans Surface During Budding Events",
+                authors: "ARAÚJO, GLAUBER R. DE S.; ALCANTARA, CAROLINA DE L.; RODRIGUES, NOÊMIA; de Souza, Wanderley; Pontes, Bruno; Frases, Susana; FRASES, S.",
+                journal: "Frontiers in Microbiology, 2021, 12, 1",
+                doi: "10.3389/fmicb.2021.609244",
+                year: 2021
+            },
+            {
+                title: "Treatment with Non-invasive respiratory support in severe COVID-19: Clinical effectiveness observational study",
+                authors: "SEGRELLES-CALVO, GONZALO; ZAMARRO, CELIA; GARCÍA-SALMONES, MERCEDES; Frases, Susana; FRASES, S.; LLOPIS-PASTOR, ESTEFANÍA; DE SOUSA ARAÚJO, GLAUBER RIBEIRO; ESCRIBANO, INÉS; ANTÓN, ESTHER; REY, LAURA; RODRIGUEZ MELEAN, NESTOR; HERNÁNDEZ, MARTA; CARRILLO, JAVIER",
+                journal: "Journal of Lung Health and Diseases, 2021, 5, 5-11",
+                doi: "10.29245/2689-999X/2021/2.1173",
+                year: 2021
+            },
+            {
+                title: "Production of Secreted Carbohydrates that Present Immunologic Similarities with the Cryptococcus Glucuronoxylomannan by Members of the Trichosporonaceae Family: A Comparative Study Among Species of Clinical Interest",
+                authors: "ANDRADE, I. B.; Marcos de Abreu Almeida; FIGUEIREDO-CARVALHO, M. H. G.; COELHO, R. A.; CHAVES, A. L. S.; FRASÉS, SUSANA; Rosely Maria Zancopé-Oliveira; BRITO-SANTOS, F.; ALMEIDA-PAES, R.",
+                journal: "MYCOPATHOLOGIA, 2021, 1, 1",
+                doi: "10.1007/s11046-021-00558-w",
+                year: 2021
+            },
+            {
+                title: "Probing the screening of the Casimir interaction with optical tweezers",
+                authors: "PIRES, L. B.; MOURA, M. J. B.; Frases, S.; FRASES, S.; Pontes, B.; NUSSENZVEIG, H. M.; REYNAUD, S.; Viana, N. B.; MAIA NETO, P. A.; ETHER, D. S.; SPRENG, B.; ARAÚJO, G. R. S.; DECCA, R. S.; DUTRA, R. S.; BORGES, M.; ROSA, F. S. S.; INGOLD, G.-L.",
+                journal: "Physical Review Research, 2021, 3, 033037",
+                doi: "10.1103/PhysRevResearch.3.033037",
+                year: 2021
+            },
+            {
+                title: "Neumonía por Aspergillus lentulus en una paciente con diagnóstico de neumonía organizada criptogénica en tratamiento con corticoides orales",
+                authors: "CALVO, GONZALO SEGRELLES; PASTOR, ESTEFANÍA LLOPIS; ANTÓN, ESTHER; ESCRIBANO, INÉS; DE SOUSA ARAÚJO, GLAUBER RIBEIRO; Frases, Susana; FRASES, S.",
+                journal: "Open Respiratory Archives, 2021, 9, 100144-1",
+                doi: "10.1016/j.opresp.2021.100144",
+                year: 2021
+            },
+            {
+                title: "Medicines for Malaria Venture COVID Box: a source for repurposing drugs with antifungal activity against human pathogenic fungi",
+                authors: "Almeida-Paes, Rodrigo; DE ANDRADE, IARA BASTOS; RAMOS, MARIANA LUCY MESQUITA; RODRIGUES, MARCUS VINÍCIUS DE ARAÚJO; DO NASCIMENTO, VINÍCIUS ALVES; BERNARDES-ENGEMANN, ANDRÉA REIS; Frases, Susana; FRASES, S.",
+                journal: "Memórias do Instituto Oswaldo Cruz, 2021, 116, 1",
+                doi: "10.1590/0074-02760210207",
+                year: 2021
+            },
+            {
+                title: "Histoplasma capsulatum Glycans From Distinct Genotypes Share Structural and Serological Similarities to Cryptococcus neoformans Glucuronoxylomannan",
+                authors: "GONÇALVES, DIEGO DE SOUZA; Rodrigues, Marcio L.; PERALTA, JOSÉ MAURO; Nimrichter, Leonardo; Guimarães, Allan J.; RODRIGUEZ DE LA NOVAL, CLAUDIA; FERREIRA, MARINA DA SILVA; HONORATO, LEANDRO; ARAÚJO, GLAUBER RIBEIRO DE SOUSA; Frases, Susana; FRASES, S.; PIZZINI, CLAUDIA VERA; Nosanchuk, Joshua D.; Cordero, Radames J. B.",
+                journal: "Frontiers in Cellular and Infection Microbiology, 2021, 10, 1",
+                doi: "10.3389/fcimb.2020.565571",
+                year: 2021
+            },
+            {
+                title: "Dexamethasone and Methylprednisolone Promote Cell Proliferation, Capsule Enlargement, and in vivo Dissemination of C. neoformans",
+                authors: "ARAÚJO, GLAUBER R. DE S.; ALVES, VINICIUS; MARTINS-DE-SOUZA, PEDRO H.; Guimarães, Allan J.; HONORATO, LEANDRO; Nimrichter, Leonardo; TAKIYA, CHRISTINA MAEDA; Pontes, Bruno; Frases, Susana; FRASES, S.",
+                journal: "Frontiers in Fungal Biology, 2021, 2, 1-1",
+                doi: "10.3389/ffunb.2021.643537",
+                year: 2021
+            },
+            {
+                title: "Candida spp. co-infection in COVID-19 patients with severe pneumonia: Prevalence study and associated risk factors",
+                authors: "SEGRELLES-CALVO, GONZALO; ZAMARRO, CELIA; GARCÍA-SALMONES, MERCEDES; Frases, Susana; FRASES, S.; DE S ARAÚJO, GLAUBER R.; LLOPIS-PASTOR, ESTEFANÍA; CARRILLO, JAVIER; HERNÁNDEZ-HERNÁNDEZ, MARTA; REY, LAURA; MELEAN, NESTOR RODRÍGUEZ; ESCRIBANO, INÉS; ANTÓN, ESTHER",
+                journal: "RESPIRATORY MEDICINE, 2021, 188, 106619",
+                doi: "10.1016/j.rmed.2021.106619",
+                year: 2021
+            },
+            {
+                title: "Candida glabrata</i> produces a melanin-like pigment that protects against stress conditions encountered during parasitism",
+                authors: "Almeida-Paes, Rodrigo; FIGUEIREDO-CARVALHO, MARIA HG; DA SILVA, LEANDRO BR; GERFEN, GARY; S ARAÚJO, GLAUBER R DE; Frases, Susana; FRASES, S.; ZANCOPÉ-OLIVEIRA, ROSELY M; NOSANCHUK, JOSHUA D",
+                journal: "Future Microbiology, 2021, 16, 509-520",
+                doi: "10.2217/fmb-2020-0228",
+                year: 2021
+            },
+            // 2020
+            {
+                title: "Trichosporon asahii as cause of nosocomial pneumonia in patient with COVID-19: A triple co-infection",
+                authors: "SEGRELLES-CALVO, GONZALO; ARAÚJO, GLAUBER R. DE S.; LLOPIS-PASTOR, ESTEFANÍA; FRASÉS, SUSANA",
+                journal: "ARCHIVOS DE BRONCONEUMOLOGIA, 2020, 1, 1",
+                doi: "10.1016/j.arbres.2020.11.007",
+                year: 2020
+            },
+            {
+                title: "Systemic mycoses: a potential alert for complications in COVID-19 patients",
+                authors: "SEGRELLES-CALVO, GONZALO; DE S ARAÚJO, GLAUBER R; Frases, Susana; FRASES, S.",
+                journal: "Future Microbiology, 2020, 15, 1405-1413",
+                doi: "10.2217/fmb-2020-0156",
+                year: 2020
+            },
+            {
+                title: "Surface, adhesiveness and virulence aspects of Candida haemulonii species complex",
+                authors: "RAMOS, LÍVIA S; BRANQUINHA, MARTA H; SANTOS, ANDRÉ L S; OLIVEIRA, SIMONE S C; SILVA, LAURA N; GRANATO, MARCELA Q; GONÇALVES, DIEGO S; Frases, Susana; FRASES, S.; SEABRA, SERGIO H; MACEDO, ALEXANDRE J; KNEIPP, LUCIMAR F",
+                journal: "MEDICAL MYCOLOGY, 2020, 1, 1",
+                doi: "10.1093/mmy/myz139",
+                year: 2020
+            },
+            {
+                title: "Prevalence of opportunistic invasive aspergillosis in COVID-19 patients with severe pneumonia",
+                authors: "SEGRELLES'CALVO, GONZALO; ZAMARRO, CELIA; GARCÍA'SALMONES, MERCEDES; Frases, Susana; FRASES, S.; ARAÚJO, GLAUBER R. S.; LLOPIS'PASTOR, ESTEFANÍA; CARRILLO, JAVIER; HERNÁNDEZ'HERNÁNDEZ, MARTA; REY, LAURA; RODRÍGUEZ MELEAN, NESTOR; ESCRIBANO, INÉS; ANTÓN, ESTHER",
+                journal: "MYCOSES (BERLIN. INTERNET), 2020, 64, 144-151",
+                doi: "10.1111/myc.13219",
+                year: 2020
+            },
+            {
+                title: "Membrane Elastic Properties During Neural Precursor Cell Differentiation",
+                authors: "SOARES, JULIANA; NUSSENZVEIG, H. MOYSÉS; Pontes, Bruno; ARAUJO, GLAUBER R. DE S.; SANTANA, CINTIA; MATIAS, DIANA; MOURA-NETO, VIVALDO; FARINA, MARCOS; Frases, Susana; FRASES, S.; Viana, Nathan B.; ROMÃO, LUCIANA",
+                journal: "Cells, 2020, 9, 1323",
+                doi: "10.3390/cells9061323",
+                year: 2020
+            },
+            {
+                title: "Hypervirulence and cross-resistance to a clinical antifungal are induced by an environmental fungicide in Cryptococcus gattii",
+                authors: "CARNEIRO, HELLEM CRISTINA SILVA; Rodrigues, Marcio L.; DE SOUSA ARAÚJO, GLAUBER RIBEIRO; Frases, Susana; FRASES, S.; RUIZ, JERONIMO CONCEIÇÃO; MARINHO, PAULA; ABRAHÃO, JÔNATAS SANTOS; RESENDE-STOIANOFF, MARIA APARECIDA; CARTER, DEE; SANTOS, DANIEL ASSIS; BASTOS, RAFAEL WESLEY; RIBEIRO, NOELLY QUEIROZ; GOUVEIA-EUFRASIO, LUDMILA; COSTA, MARLIETE CARVALHO; MAGALHÃES, THAÍS FURTADO FERREIRA; OLIVEIRA, LORENA VÍVIEN; PAIXÃO, TATIANE ALVES; JOFFE, LUNA SOBRINO",
+                journal: "SCIENCE OF THE TOTAL ENVIRONMENT, 2020, 101, 140135",
+                doi: "10.1016/j.scitotenv.2020.140135",
+                year: 2020
+            },
+            {
+                title: "Endocytosis and Exocytosis in Leishmania amazonensis Are Modulated by Bromoenol Lactone",
+                authors: "FERNANDES, ANNE C. S.; SOUTO-PADRÓN, THAÏS; SOARES, DEIVID C.; NEVES, ROBERTA F. C.; KOELLER, CAROLINA M.; HEISE, NORTON; ADADE, CAMILA M.; Frases, Susana; FRASES, S.; MEYER-FERNANDES, JOSÉ R.; SARAIVA, ELVIRA M.",
+                journal: "Frontiers in Cellular and Infection Microbiology, 2020, 10, 1",
+                doi: "10.3389/fcimb.2020.00039",
+                year: 2020
+            },
+            {
+                title: "Effect of cell geometry in the evaluation of erythrocyte viscoelastic properties",
+                authors: "GÓMEZ, FRAN; SILVA, LEANDRO S.; ARAÚJO, GLAUBER RIBEIRO DE SOUSA; Frases, Susana; FRASES, S.; PINHEIRO, ANA ACACIA S.; AGERO, UBIRAJARA; Pontes, Bruno; VIANA, NATHAN BESSA",
+                journal: "PHYSICAL REVIEW E, 2020, 101, 1",
+                doi: "10.1103/physreve.101.062403",
+                year: 2020
+            },
+            // 2019
+            {
+                title: "The mechanical properties of microbial surfaces and biofilms",
+                authors: "ARAÚJO, GLAUBER R DE S.; Viana, Nathan B.; GÓMEZ, FRAN; Pontes, Bruno; Frases, Susana; FRASES, S.",
+                journal: "The Cell Surface, 2019, 1, 100028-100031",
+                doi: "10.1016/j.tcsw.2019.100028",
+                year: 2019
+            },
+            {
+                title: "Rheological properties of cryptococcal polysaccharide change with fiber size, antibody binding and temperature",
+                authors: "DE S ARAÚJO, GLAUBER R; VIANA, NATHAN B; Pontes, Bruno; Frases, Susana; FRASES, S.",
+                journal: "Future Microbiology, 2019, 1, 1",
+                doi: "10.2217/fmb-2018-0320",
+                year: 2019
+            },
+            {
+                title: "Interaction with Pantoea agglomerans Modulates Growth and Melanization of Sporothrix brasiliensis and Sporothrix schenckii",
+                authors: "Almeida-Paes, Rodrigo; BRITO-SANTOS, FÁBIO; OLIVEIRA, MANOEL MARQUES EVANGELISTA; BAILÃO, ALEXANDRE MELO; BORGES, CLAYTON LUIZ; ARAÚJO, GLAUBER RIBEIRO DE SOUZA; Frases, Susana; FRASES, S.; SOARES, CÉLIA MARIA DE ALMEIDA; Zancopé-Oliveira, Rosely Maria",
+                journal: "MYCOPATHOLOGIA, 2019, 1, 1",
+                doi: "10.1007/s11046-019-00350-x",
+                year: 2019
+            },
+            {
+                title: "Cryptococcus neoformans</i> Glucuronoxylomannan and Sterylglucoside Are Required for Host Protection in an Animal Vaccination Model",
+                authors: "COLOMBO, ANA CAROLINE; FRIES, BETTINA C.; SHERIDAN, BRIAN; Nimrichter, Leonardo; Rodrigues, Marcio L.; DEL POETA, MAURIZIO; RELLA, ANTONELLA; NORMILE, TYLER; Joffe, Luna S.; TAVARES, PATRICIA M.; DE S. ARAÚJO, GLAUBER R.; Frases, Susana; FRASES, S.; ORNER, ERIKA P.; FARNOUD, AMIR M.",
+                journal: "mBio, 2019, 10, 1",
+                doi: "10.1128/mbio.02909-18",
+                year: 2019
+            },
+            // 2018
+            {
+                title: "Trypanosoma cruzi epimastigotes store cholesteryl esters in lipid droplets after cholesterol endocytosis",
+                authors: "PEREIRA, MIRIA G.; VISBAL, GONZALO; COSTA, TATIANA F.R.; Frases, Susana; FRASES, S.; de Souza, Wanderley; ATELLA, GEÓRGIA; CUNHA-E-SILVA, NARCISA",
+                journal: "MOLECULAR AND BIOCHEMICAL PARASITOLOGY, 2018, 224, 6-16",
+                doi: "10.1016/j.molbiopara.2018.07.004",
+                year: 2018
+            },
+            {
+                title: "Surface properties, adhesion and biofilm formation on different surfaces by Scedosporium</i> spp. and Lomentospora prolificans</i>",
+                authors: "MELLO, THAÍS P.; OLIVEIRA, SIMONE S. S.; FRASÉS, SUSANA; BRANQUINHA, MARTA H.; SANTOS, ANDRÉ L. S.",
+                journal: "BIOFOULING, 2018, 1, 1-15",
+                doi: "10.1080/08927014.2018.1503652",
+                year: 2018
+            },
+            {
+                title: "Lack of chitin synthase genes impacts capsular architecture and cellular physiology in Cryptococcus neoformans",
+                authors: "RODRIGUES, JESSICA; RAMOS, CAROLINE L.; Frases, Susana; FRASES, S.; GODINHO, RODRIGO M. DA C.; Fonseca, Fernanda L.; Rodrigues, Marcio L.",
+                journal: "The Cell Surface, 2018, 1, 1",
+                doi: "10.1016/j.tcsw.2018.05.002",
+                year: 2018
+            },
+            {
+                title: "Genotypic and Phenotypic Diversity of Cryptococcus gattii VGII Clinical Isolates and Its Impact on Virulence",
+                authors: "BARCELLOS, VANESSA A.; KMETZSCH, LIVIA; VAINSTEIN, MARILENE H.; MARTINS, LILINE M. S.; FONTES, ALIDE C. L.; REUWSAAT, JULIA C. V.; SQUIZANI, EAMIM D.; DE SOUSA ARAÚJO, GLAUBER R.; Frases, Susana; FRASES, S.; STAATS, CHARLEY C.; SCHRANK, AUGUSTO",
+                journal: "Frontiers in Microbiology, 2018, 9, 1",
+                doi: "10.3389/fmicb.2018.00132",
+                year: 2018
+            },
+            {
+                title: "A Predicted Mannoprotein Participates in Cryptococcus gattii</i> Capsular Structure",
+                authors: "REUWSAAT, JULIA CATARINA VIEIRA; LOPES, WILLIAM; BARCELLOS, VANESSA ABREU; SQUIZANI, EAMIM DAIDRÊ; HORTA, JORGE ANDRÉ; SCHRANK, AUGUSTO; RODRIGUES, MARCIO LOURENÇO; STAATS, CHARLEY CHRISTIAN; VAINSTEIN, MARILENE HENNING; KMETZSCH, LÍVIA; MOTTA, HERYK; GARCIA, ANE WICHINE ACOSTA; VASCONCELOS, CAROLINA BETTKER; MARQUES, BÁRBARA MACHADO; OLIVEIRA, NATÁLIA KRONBAUER; RODRIGUES, JÉSSICA; FERRAREZE, PATRÍCIA ALINE GRÖHNS; Frases, Susana; FRASES, S.",
+                journal: "mSphere, 2018, 3, e00023-18",
+                doi: "10.1128/msphere.00023-18",
+                year: 2018
+            },
+            // 2017
+            {
+                title: "The hidden pathogenic potential of environmental fungi",
+                authors: "DE S ARAÚJO, GLAUBER R; SOUZA, WANDERLEY DE; Frases, Susana; FRASES, S.",
+                journal: "Future Microbiology, 2017, 1, fmb-2017-0124",
+                doi: "10.2217/fmb-2017-0124",
+                year: 2017
+            },
+            {
+                title: "The environmental yeast Cryptococcus liquefaciens produces capsular and secreted polysaccharides with similar pathogenic properties to those of C. neoformans",
+                authors: "ARAÚJO, GLAUBER R. DE S.; FREITAS, GUSTAVO J. C.; Fonseca, Fernanda L.; LEITE, PAULO EMILIO C.; ROCHA, GUSTAVO MIRANDA; de Souza, Wanderley; SANTOS, DANIEL A.; Frases, Susana; FRASES, S.",
+                journal: "Scientific Reports, 2017, 7, 46768",
+                doi: "10.1038/srep46768",
+                year: 2017
+            },
+            {
+                title: "Phosphorus-rich structures and capsular architecture in Cryptococcus neoformans</i>",
+                authors: "RAMOS, CAROLINE L; RODRIGUES, MARCIO L; Miranda, Kildare; GOMES, FABIO M; Girard-Dias, Wendell; ALMEIDA, FERNANDO P; ALBUQUERQUE, PRISCILA C; KRETSCHMER, MATTHIAS; KRONSTAD, JAMES W; Frases, Susana; FRASES, S.; de Souza, Wanderley",
+                journal: "Future Microbiology (Print), 2017, 1, 1",
+                doi: "10.2217/fmb-2017-0060",
+                year: 2017
+            },
+            {
+                title: "Geometrical Distribution of Cryptococcus neoformans Mediates Flower-Like Biofilm Development",
+                authors: "LOPES, WILLIAM; VAINSTEIN, MENDELI H.; DE SOUSA ARAUJO, GLAUBER R.; Frases, Susana; FRASES, S.; STAATS, CHARLEY C.; DE ALMEIDA, RITA M. C.; SCHRANK, AUGUSTO; KMETZSCH, LÍVIA; VAINSTEIN, MARILENE H.",
+                journal: "Frontiers in Microbiology, 2017, 8, 1",
+                doi: "10.3389/fmicb.2017.02534",
+                year: 2017
+            },
+            {
+                title: "Characterization of the antifungal functions of a WGA-Fc (IgG2a) fusion protein binding to cell wall chitin oligomers",
+                authors: "LIEDKE, SUSIE COUTINHO; Guimarães, Allan J.; MIRANDA, DANIEL ZAMITH; GOMES, KAMILLA XAVIER; GONÇALVES, JORGE LUIS S.; Frases, Susana; FRASES, S.; Nosanchuk, Joshua D.; Rodrigues, Marcio L.; Nimrichter, Leonardo; PERALTA, JOSÉ MAURO",
+                journal: "Scientific Reports, 2017, 7, 1",
+                doi: "10.1038/s41598-017-12540-y",
+                year: 2017
+            },
+            {
+                title: "Biofilm Formation by Pseudallescheria/Scedosporium Species: A Comparative Study",
+                authors: "ROLLIN-PINHEIRO, RODRIGO; DE MEIRELLES, JARDEL V.; VILA, TAISSA V. M.; FONSECA, BEATRIZ B.; ALVES, VINICIUS; Frases, Susana; FRASES, S.; ROZENTAL, SONIA; BARRETO-BERGTER, ELIANA",
+                journal: "Frontiers in Microbiology, 2017, 8, 1",
+                doi: "10.3389/fmicb.2017.01568",
+                year: 2017
+            },
+            {
+                title: "Atorvastatin as a promising anticryptococcal agent",
+                authors: "RIBEIRO, NOELLY DE QUEIROZ; ALVES, VINÍCIUS; Frases, Susana; FRASES, S.; PAIXÃO, TATIANE ALVES; DE RESENDE STOIANOFF, MARIA APARECIDA; SANTOS, DANIEL ASSIS; COSTA, MARLIETE CARVALHO; MAGALHÃES, THAÍS FURTADO FERREIRA; CARNEIRO, HELLEM CRISTINA SILVA; OLIVEIRA, LORENA VÍVIEN; FONTES, ALIDE CAROLINE LIMA; SANTOS, JULLIANA RIBEIRO ALVES; FERREIRA, GABRIELA FREITAS; ARAUJO, GLAUBER RIBEIRO DE SOUSA",
+                journal: "INTERNATIONAL JOURNAL OF ANTIMICROBIAL AGENTS, 2017, 1, 1",
+                doi: "10.1016/j.ijantimicag.2017.04.005",
+                year: 2017
+            },
+            // 2016
+            {
+                title: "Yeast-derived biosynthesis of silver/silver chloride nanoparticles and their antiproliferative activity against bacteria",
+                authors: "EUGENIO, MATEUS; MÜLLER, NATHALIA; FRASÉS, SUSANA; Almeida-Paes, Rodrigo; LIMA, LUÍS MAURÍCIO T. R.; LEMGRUBER, LEANDRO; FARINA, MARCOS; de Souza, Wanderley; SANT'ANNA, CELSO",
+                journal: "RSC Advances: an international journal to further the chemical sciences, 2016, 6, 9893-9904",
+                doi: "10.1039/c5ra22727e",
+                year: 2016
+            },
+            {
+                title: "Rheological properties of cells measured by optical tweezers",
+                authors: "AYALA, YARENI A.; Viana, Nathan B.; NUSSENZVEIG, H. MOYSÉS; Pontes, Bruno; ETHER, DINEY S.; PIRES, LUIS B.; ARAUJO, GLAUBER R.; Frases, Susana; FRASES, S.; ROMÃO, LUCIANA F.; FARINA, MARCOS; MOURA-NETO, VIVALDO",
+                journal: "BMC BIOPHYS, 2016, 9, 1-1",
+                doi: "10.1186/s13628-016-0031-4",
+                year: 2016
+            },
+            {
+                title: "Networks of fibers and factors: regulation of capsule formation in Cryptococcus neoformans",
+                authors: "DING, HAO; MAYER, FRANÇOIS L.; SÁNCHEZ-LEÓN, EDDY; DE S. ARAÚJO, GLAUBER R.; Frases, Susana; FRASES, S.; KRONSTAD, JAMES W.",
+                journal: "F1000Research, 2016, 5, 1786-1",
+                doi: "10.12688/f1000research.8854.1",
+                year: 2016
+            },
+            {
+                title: "Green production of microalgae-based silver chloride nanoparticles with antimicrobial activity against pathogenic bacteria",
+                authors: "DA SILVA FERREIRA, VERONICA; CONZ, MATEUS EUGENIO FERREIRA; LIMA, LUÍS MAURÍCIO T.R.; FRASÉS, SUSANA; de Souza, Wanderley; SANT?ANNA, CELSO",
+                journal: "Enzyme and Microbial Technology, 2016, 1, 1",
+                doi: "10.1016/j.enzmictec.2016.10.018",
+                year: 2016
+            },
+            {
+                title: "Enhanced virulence of Histoplasma capsulatum through transfer and surface incorporation of glycans from Cryptococcus neoformans during co-infection",
+                authors: "Cordero, Radames J. B.; Nosanchuk, Joshua D.; GUIMARAES, ALLAN J.; LIEDKE, SUSIE COUTINHO; DE S. ARAÚJO, GLAUBER R.; Martinez, Luis R.; Nimrichter, Leonardo; Frases, Susana; FRASES, S.; PERALTA, JOSE MAURO; Casadevall, Arturo; Rodrigues, Marcio L.",
+                journal: "Scientific Reports, 2016, 6, 21765",
+                doi: "10.1038/srep21765",
+                year: 2016
+            },
+            {
+                title: "Comprehensive analysis of the cellulolytic system reveals its potential for deconstruction of lignocellulosic biomass in a novel Streptomyces sp.",
+                authors: "PINHEIRO, GUILHERME L.; DE AZEVEDO-MARTINS, ALLAN C.; ALBANO, RODOLPHO M.; de Souza, Wanderley; Frases, Susana; FRASES, S.",
+                journal: "Applied Microbiology and Biotechnology, 2016, 1, 1-0",
+                doi: "10.1007/s00253-016-7851-7",
+                year: 2016
+            },
+            {
+                title: "Biochemical Characterization of Streptomyces sp. I1.2 Secretome Reveals the Presence of Multienzymatic Complexes Containing Cellulases and Accessory Enzymes",
+                authors: "PINHEIRO, GUILHERME L.; RODRIGUEZ, JIMMY ESNEIDER; DOMONT, GILBERTO B.; de Souza, Wanderley; JUNQUEIRA, MAGNO; Frases, Susana; FRASES, S.",
+                journal: "BioEnergy Research, 2016, 1, 1",
+                doi: "10.1007/s12155-016-9771-x",
+                year: 2016
+            },
+            // 2015
+            {
+                title: "The Cryptococcus neoformans capsule: lessons from the use of optical tweezers and other biophysical tools",
+                authors: "Pontes, Bruno; Frases, Susana; FRASES, S.",
+                journal: "Frontiers in Microbiology (Online), 2015, 6, 1-1",
+                doi: "10.3389/fmicb.2015.00640",
+                year: 2015
+            },
+            {
+                title: "Probing the Casimir force with optical tweezers",
+                authors: "ETHER, D. S.; ROSA, F. S. S.; Viana, N. B.; NUSSENZVEIG, H. M.; MAIA NETO, P. A.; PIRES, L. B.; UMRATH, S.; MARTINEZ, D.; AYALA, Y.; Pontes, B.; DE S. ARAÚJO, G. R.; Frases, S.; FRASES, S.; INGOLD, G.-L.",
+                journal: "Europhysics Letters (Print), 2015, 112, 44001",
+                doi: "10.1209/0295-5075/112/44001",
+                year: 2015
+            },
+            {
+                title: "Isolation of aerobic cultivable cellulolytic bacteria from different regions of the gastrointestinal tract of giant land snail Achatina fulica",
+                authors: "PINHEIRO, GUILHERME L.; CORREA, RAQUEL F.; CUNHA, RAQUEL S.; CARDOSO, ALEXANDER M.; CHAIA, CATIA; CLEMENTINO, MAYSA M.; Garcia, Eloi S.; de Souza, Wanderley; FRASÉS, SUSANA",
+                journal: "Frontiers in Microbiology (Online), 2015, 6, 1-1",
+                doi: "10.3389/fmicb.2015.00860",
+                year: 2015
+            },
+            {
+                title: "Identification of a New Class of Antifungals Targeting the Synthesis of Fungal Sphingolipids",
+                authors: "MOR, VISESATO; BULLESBACH, ERIKA; ASHBAUGH, ALAN; LINKE, MICHAEL J.; CUSHION, MELANIE; COLLINS, MARGARET; ANANTHULA, HARI KRISHNA; SALLANS, LARRY; DESAI, PANKAJ B.; WIEDERHOLD, NATHAN P.; FOTHERGILL, ANNETTE W.; RELLA, ANTONELLA; FARNOUD, AMIR M.; FRASES, S.; SINGH, ASHUTOSH; MUNSHI, MANSA; BRYAN, ARIELLE; NASEEM, SHAMOON; KONOPKA, JAMES B.; OJIMA, IWAO; et.al",
+                journal: "mBio (Online), 2015, 6, e00647-15",
+                doi: "10.1128/mbio.00647-15",
+                year: 2015
+            },
+            {
+                title: "Cryptococcus neoformans capsular polysaccharides form branched and complex filamentous networks viewed by high-resolution microscopy",
+                authors: "ARAÚJO, GLAUBER R DE S.; FONTES, GISELLE N; LEÃO, DANIELA; ROCHA, GUSTAVO MIRANDA; Pontes, Bruno; SANT?ANNA, CELSO; de Souza, Wanderley; Frases, Susana; FRASES, S.",
+                journal: "Journal of Structural Biology (Print), 2015, 1, 1",
+                doi: "10.1016/j.jsb.2015.11.010",
+                year: 2015
+            },
+            // 2014
+            {
+                title: "The vacuolar-sorting protein Snf7 is required for export of virulence determinants in members of the Cryptococcus neoformans complex.",
+                authors: "DA C. GODINHO, RODRIGO M.; CRESTANI, JULIANA; KMETZSCH, LÍVIA; DE S. ARAUJO, GLAUBER; Frases, Susana; FRASES, S.; STAATS, CHARLEY C.; SCHRANK, AUGUSTO; VAINSTEIN, MARILENE H.; Rodrigues, Marcio L.",
+                journal: "Scientific Reports, 2014, 4, 6198",
+                doi: "10.1038/srep06198",
+                year: 2014
+            },
+            {
+                title: "Fluconazole Alters the Polysaccharide Capsule of Cryptococcus gattii and Leads to Distinct Behaviors in Murine Cryptococcosis",
+                authors: "SANTOS, JULLIANA RIBEIRO ALVES; BALTAZAR, LUDMILA MATOS; MIRANDA, ALINE SILVA; OLIVEIRA, DANILO BRETAS; SANTOS, CAROLINA MARIA ARAÚJO; FONTES, ALIDE CAROLINE LIMA; GOUVEIA, LUDMILA FERREIRA; RESENDE-STOIANOFF, MARIA APARECIDA; ABRAHÃO, JONATAS SANTOS; TEIXEIRA, ANTÔNIO LÚCIO; PAIXÃO, TATIANE ALVES; HOLANDA, RODRIGO ASSUNÇÃO; Frases, Susana; FRASES, S.; BRAVIM, MAYARA; Araujo, Glauber de S.; SANTOS, PATRÍCIA CAMPI; COSTA, MARLIETE CARVALHO; RIBEIRO, MAIRA JULIANA ANDRADE; FERREIRA, GABRIELLA FREITAS; et.al",
+                journal: "Plos One, 2014, 9, e112669",
+                doi: "10.1371/journal.pone.0112669",
+                year: 2014
+            },
+            {
+                title: "Cryptococcus neoformans</i> glucuronoxylomannan fractions of different molecular masses are functionally distinct",
+                authors: "ALBUQUERQUE, PRISCILA C; FONSECA, FERNANDA L; DUTRA, FABIANNO F; BOZZA, MARCELO T; Frases, Susana; FRASES, S.; Casadevall, Arturo; RODRIGUES, MARCIO L",
+                journal: "Future Microbiology, 2014, 9, 147-161",
+                doi: "10.2217/fmb.13.163",
+                year: 2014
+            },
+            {
+                title: "Compositional and immunobiological analyses of extracellular vesicles released by Candida albicans</i>",
+                authors: "VARGAS, G.; MIRANDA, K. R.; SOBREIRA, T. J. P.; NAKAYASU, E. S.; ARIGI, E. A.; Casadevall, A.; Guimaraes, A. J.; Rodrigues, M. L.; FREIRE-DE-LIMA, C. G.; Almeida, I. C.; Nimrichter, L.; ROCHA, J. D. B.; Oliveira, D. L.; ALBUQUERQUE, P. C.; Frases, S.; FRASES, S.; SANTOS, S. S.; Nosanchuk, J. D.; GOMES, A. M. O.; SOARES MEDEIROS, L. C.; et.al",
+                journal: "Cellular Microbiology (Print), 2014, 1, n/a-n/a",
+                doi: "10.1111/cmi.12374",
+                year: 2014
+            },
+            {
+                title: "A Role for LHC1 in Higher Order Structure and Complement Binding of the Cryptococcus neoformans Capsule",
+                authors: "Park, Yoon-Dong; HIMMELREICH, UWE; BEENHOUWER, DAVID; BENNETT, JOHN E.; Casadevall, Arturo; Williamson, Peter R.; SHIN, SOOWAN; Panepinto, John; RAMOS, JEANIE; QIU, JIN; Frases, Susana; FRASES, S.; ALBUQUERQUE, PATRICIA; Cordero, Radames J. B.; ZHANG, NANNAN",
+                journal: "PLoS Pathogens (Online), 2014, 10, e1004037",
+                doi: "10.1371/journal.ppat.1004037",
+                year: 2014
+            },
+            // 2013
+            {
+                title: "Role of the Apt1 protein in polysaccharide secretion by Cryptococcus neoformans",
+                authors: "RIZZO, J.; Rodrigues, M. L.; Oliveira, D. L.; JOFFE, L. S.; HU, G.; GAZOS-LOPES, F.; Fonseca, F. L.; Almeida, I. C.; Frases, S.; FRASES, S.; KRONSTAD, J. W.",
+                journal: "Eukaryotic Cell, 2013, 1, 1-1",
+                doi: "10.1128/ec.00273-13",
+                year: 2013
+            },
+            {
+                title: "Pyomelanin production: a rare phenotype in Acinetobacter baumannii",
+                authors: "COELHO-SOUZA, T.; MARTINS, N.; MAIA, F.; Frases, S.; FRASES, S.; BONELLI, R. R.; RILEY, L. W.; MOREIRA, B. M.",
+                journal: "Journal of Medical Microbiology, 2013, 1, 1",
+                doi: "10.1099/jmm.0.064089-0",
+                year: 2013
+            },
+            {
+                title: "Methamphetamine Enhances Cryptococcus neoformans Pulmonary Infection and Dissemination to the Brain",
+                authors: "PATEL, D.; DESAI, G. M.; Frases, S.; FRASES, S.; Cordero, R. J. B.; DELEON-RODRIGUEZ, C. M.; EUGENIN, E. A.; Nosanchuk, J. D.; MARTINEZ, L. R.",
+                journal: "mBio (Online), 2013, 4, e00400-13-e00400-13",
+                doi: "10.1128/mBio.00400-13",
+                year: 2013
+            },
+            {
+                title: "Methamphetamine Alters Blood Brain Barrier Protein Expression Facilitating Central Nervous System Infection by Neurotropic Cryptococcus neoformans",
+                authors: "EUGENIN, E. A.; GRECO, J. M.; Frases, S.; FRASES, S.; Nosanchuk, J. D.; MARTINEZ, L. R.",
+                journal: "The Journal of Infectious Diseases, 2013, 1, 1",
+                doi: "10.1093/infdis/jit117",
+                year: 2013
+            },
+            {
+                title: "Binding of the wheat germ lectin to Cryptococcus neoformans chitooligomers affects multiple mechanisms required for fungal pathogenesis",
+                authors: "Fonseca, Fernanda L.; BOZZA, MARCELO T.; SCHRANK, AUGUSTO; VAINSTEIN, MARILENE H.; Nimrichter, Leonardo; Casadevall, Arturo; Rodrigues, Marcio L.; Guimarães, Allan J.; KMETZSCH, LÍVIA; DUTRA, FABIANNO F.; Silva, Fernanda D.; TABORDA, CARLOS P.; Araujo, Glauber de S.; Frases, Susana; FRASES, S.; STAATS, CHARLEY C.",
+                journal: "Fungal Genetics and Biology (Print), 2013, 1, 1",
+                doi: "10.1016/j.fgb.2013.04.005",
+                year: 2013
+            },
+            // 2012
+            {
+                title: "Using Solid-state NMR to Monitor the Molecular Consequences of Melanization with Different Catecholamine Precursors",
+                authors: "Chatterjee, Subhasish; Prados-Rosales, Rafael; Frases, Susana; FRASES, S.; Itin, Boris; Casadevall, Arturo; Stark, Ruth E",
+                journal: "Biochemistry (Easton), 2012, 00, 120705160739005",
+                doi: "10.1021/bi300325m",
+                year: 2012
+            },
+            {
+                title: "Capsules from Pathogenic and Non-Pathogenic Cryptococcus spp. Manifest Significant Differences in Structure and Ability to Protect against Phagocytic Cells",
+                authors: "Araujo, Glauber de S.; Rodrigues, Marcio L.; Garcia, Eloi S.; de Souza, Wanderley; Frases, Susana; FRASES, S.; Fonseca, Fernanda L.; Pontes, Bruno; Torres, Andre; Cordero, Radames J. B.; Zancopé-Oliveira, Rosely M.; Casadevall, Arturo; Viana, Nathan B.; Nimrichter, Leonardo",
+                journal: "Plos One, 2012, 7, e29561-e29561",
+                doi: "10.1371/journal.pone.0029561",
+                year: 2012
+            },
+            {
+                title: "Biosynthesis and functions of a melanoid pigment produced by species of the Sporothrix complex in presence of L-tyrosine",
+                authors: "Almeida-Paes, R.; Frases, S.; FRASES, S.; ARAUJO, G. S.; OLIVEIRA, M. M. E. D.; GERFEN, G. J.; Nosanchuk, J. D.; Zancope-Oliveira, R. M.",
+                journal: "Applied and Environmental Microbiology (Print), 2012, 1, 1",
+                doi: "10.1128/AEM.02414-12",
+                year: 2012
+            },
+            {
+                title: "Antibody Binding to Cryptococcus neoformans Impairs Budding by Altering Capsular Mechanical Properties",
+                authors: "Cordero, R. J. B.; Pontes, B.; Frases, S.; FRASES, S.; Nakouzi, A. S.; Nimrichter, L.; Rodrigues, M. L.; Viana, N. B.; Casadevall, A.",
+                journal: "The Journal of Immunology (1950. Online), 2012, 190, 317-323",
+                doi: "10.4049/jimmunol.1202324",
+                year: 2012
+            },
+            // 2011
+            {
+                title: "Evidence for branching in cryptococcal capsular polysaccharides and consequences on its biological activity",
+                authors: "Cordero, Radames J. B.; Frases, Susana; FRASES, S.; Guimaräes, Allan J.; Rivera, Johanna; Casadevall, Arturo",
+                journal: "Molecular Microbiology (Print), 2011, 79, 1101-1117",
+                doi: "10.1111/j.1365-2958.2010.07511.x",
+                year: 2011
+            },
+            {
+                title: "Effects of microplusin, a copper-chelating antimicrobial peptide, against Cryptococcus neoformans",
+                authors: "Silva, Fernanda D.; Rossi, Diego C.P.; Martinez, Luis R.; Frases, Susana; FRASES, S.; Fonseca, Fernanda L.; Campos, Claudia Barbosa L.; Rodrigues, Marcio L.; Nosanchuk, Joshua D.; Daffre, Sirlei",
+                journal: "FEMS Microbiology Letters, 2011, 324, 64-72",
+                doi: "10.1111/j.1574-6968.2011.02386.x",
+                year: 2011
+            },
+            {
+                title: "Biophysical Methods for the Study of Microbial Surfaces",
+                authors: "Frases, Susana; FRASES, S.; Viana, Nathan B.; Casadevall, Arturo",
+                journal: "Frontiers in Microbiology (Online), 2011, 2, 1-2",
+                doi: "10.3389/fmicb.2011.00207",
+                year: 2011
+            },
+            {
+                title: "Agglutination of Histoplasma capsulatum by IgG Monoclonal Antibodies against Hsp60 Impacts Macrophage Effector Functions",
+                authors: "Guimaraes, A. J.; Frases, S.; FRASES, S.; Pontes, B.; de Cerqueira, M. D.; Rodrigues, M. L.; Viana, N. B.; Nimrichter, L.; Nosanchuk, J. D.",
+                journal: "Infection and Immunity (Print), 2011, 79, 918-927",
+                doi: "10.1128/IAI.00673-10",
+                year: 2011
+            },
+            // 2010
+            {
+                title: "The use of chitosan to damage Cryptococcus neoformans biofilms",
+                authors: "Martinez, Luis R.; Mihu, Mircea Radu; Han, George; Frases, Susana; FRASES, S.; Cordero, Radames J.B.; Casadevall, Arturo; Friedman, Adam J.; Friedman, Joel M.; Nosanchuk, Joshua D.",
+                journal: "Biomaterials (Guildford), 2010, 31, 669-679",
+                doi: "10.1016/j.biomaterials.2009.09.087",
+                year: 2010
+            },
+            {
+                title: "Melanin-Covered Nanoparticles for Protection of Bone Marrow During Radiation Therapy of Cancer",
+                authors: "Schweitzer, Andrew D.; Dadachova, Ekaterina; Revskaya, Ekaterina; Chu, Peter; Pazo, Valeria; Friedman, Matthew; Nosanchuk, Joshua D.; Cahill, Sean; Frases, Susana; FRASES, S.; Casadevall, Arturo",
+                journal: "International Journal of Radiation Oncology, Biology, Physics, 2010, 78, 1494-1502",
+                doi: "10.1016/j.ijrobp.2010.02.020",
+                year: 2010
+            },
+            {
+                title: "Immunomodulatory Effects of Serotype B Glucuronoxylomannan from Cryptococcus gattii Correlate with Polysaccharide Diameter",
+                authors: "Fonseca, F. L.; Nohara, L. L.; Cordero, R. J. B.; Frases, S.; FRASES, S.; Casadevall, A.; Almeida, I. C.; Nimrichter, L.; Rodrigues, M. L.",
+                journal: "Infection and Immunity (Print), 2010, 78, 3861-3870",
+                doi: "10.1128/IAI.00111-10",
+                year: 2010
+            },
+            {
+                title: "Galactoxylomannans from Cryptococcus neoformans Varieties neoformans and grubii Are Structurally and Antigenically Variable",
+                authors: "De Jesus, M.; Chow, S.-K.; Cordero, R. J. B.; Frases, S.; FRASES, S.; Casadevall, A.",
+                journal: "Eukaryotic Cell, 2010, 9, 1018-1028",
+                doi: "10.1128/EC.00268-09",
+                year: 2010
+            },
+            {
+                title: "Cryptococcus neoformans responds to mannitol by increasing capsule size in vitro and in vivo",
+                authors: "Guimarães, Allan Jefferson; Frases, Susana; FRASES, S.; Cordero, Radamés J. B.; Nimrichter, Leonardo; Casadevall, Arturo; Nosanchuk, Joshua D.",
+                journal: "Cellular Microbiology (Print), 2010, 12, 740-753",
+                doi: "10.1111/j.1462-5822.2010.01430.x",
+                year: 2010
+            },
+            {
+                title: "Characterization of Yeast Extracellular Vesicles: Evidence for the Participation of Different Pathways of Cellular Traffic in Vesicle Biogenesis",
+                authors: "Oliveira, Débora L.; Almeida, Igor C.; Nimrichter, Leonardo; Rodrigues, Marcio L.; Nakayasu, Ernesto S.; Joffe, Luna S.; Guimarães, Allan J.; Sobreira, Tiago J. P.; Nosanchuk, Joshua D.; Cordero, Radames J. B.; Frases, Susana; FRASES, S.; Casadevall, Arturo",
+                journal: "Plos One, 2010, 5, e11113",
+                doi: "10.1371/journal.pone.0011113",
+                year: 2010
+            },
+            {
+                title: "Biogenesis of extracellular vesicles in yeast: Many questions with few answers",
+                authors: "Oliveira, Débora L.; Almeida, Igor C.; Nimrichter, Leonardo; Rodrigues, Marcio L.; Nakayasu, Ernesto S.; Joffe, Luna S.; Guimarães, Allan J.; Sobreira, Tiago J. P.; Nosanchuk, Joshua D.; Cordero, Radames J. B.; Frases, Susana; FRASES, S.; Casadevall, Arturo",
+                journal: "Communicative & Integrative Biology, 2010, 3, 533-535",
+                doi: "10.4161/cib.3.6.12756",
+                year: 2010
+            },
+            {
+                title: "Bacillus anthracis produces membrane-derived vesicles containing biologically active toxins",
+                authors: "Rivera, J.; Cordero, R. J. B.; Nakouzi, A. S.; Frases, S.; FRASES, S.; Nicola, A.; Casadevall, A.",
+                journal: "Proceedings of the National Academy of Sciences of the United States of America, 2010, 107, 19002-19007",
+                doi: "10.1073/pnas.1008843107",
+                year: 2010
+            },
+            // 2009
+            {
+                title: "Vesicle-associated melanization in Cryptococcus neoformans",
+                authors: "Eisenman, H. C.; Frases, S.; FRASES, S.; Nicola, A. M.; Rodrigues, M. L.; Casadevall, A.",
+                journal: "Microbiology (Reading), 2009, 155, 3860-3867",
+                doi: "10.1099/mic.0.032854-0",
+                year: 2009
+            },
+            {
+                title: "The still obscure attributes of cryptococcal glucuronoxylomannan",
+                authors: "Rodrigues, Marcio; Fonseca, Fernanda; Frases, Susana; FRASES, S.; Casadevall, Arturo; Nimrichter, Leonardo",
+                journal: "Medical Mycology (Oxford), 2009, 3, 1-7",
+                doi: "10.1080/13693780902788621",
+                year: 2009
+            },
+            {
+                title: "The Elastic Properties of the Cryptococcus neoformans Capsule",
+                authors: "Frases, Susana; FRASES, S.; Pontes, Bruno; Nimrichter, Leonardo; Rodrigues, Marcio L.; Viana, Nathan B.; Casadevall, Arturo",
+                journal: "Biophysical Journal (Print), 2009, 97, 937-945",
+                doi: "10.1016/j.bpj.2009.04.043",
+                year: 2009
+            },
+            {
+                title: "The capsule of the fungal pathogen Cryptococcus neoformans",
+                authors: "Zaragoza, O.; Rodrigues, M.L; De Jesus, M.; FRASES, S.; FRASES, S.; Dadachova, E.; Casadevall, A.",
+                journal: "Advances in Applied Microbiology, 2009, 68, 133-216",
+                doi: "",
+                year: 2009
+            },
+            {
+                title: "Structural and functional properties of the Trichosporon asahii glucuronoxylomannan",
+                authors: "Fonseca, Fernanda L.; Frases, Susana; FRASES, S.; Casadevall, Arturo; Fischman-Gompertz, Olga; Nimrichter, Leonardo; Rodrigues, Marcio L.",
+                journal: "Fungal Genetics and Biology, 2009, 46, 496-505",
+                doi: "10.1016/j.fgb.2009.03.003",
+                year: 2009
+            },
+            {
+                title: "Sec6-dependent sorting of fungal extracellular exosomes and laccase of",
+                authors: "Panepinto, John; Komperda, Kazimierz; Frases, Susana; FRASES, S.; Park, Yoon-Dong; Djordjevic, Julianne T.; Casadevall, Arturo; Williamson, Peter R.",
+                journal: "Molecular Microbiology, 2009, 71, 1165-1176",
+                doi: "10.1111/j.1365-2958.2008.06588.x",
+                year: 2009
+            },
+            {
+                title: "Role for Chitin and Chitooligomers in the Capsular Architecture of Cryptococcus neoformans",
+                authors: "Fonseca, F. L.; Casadevall, A.; Rodrigues, M. L.; Nimrichter, L.; Cordero, R. J. B.; Frases, S.; FRASES, S.; Rodrigues, J.; Goldman, D. L.; Andruszkiewicz, R.; Milewski, S.; Travassos, L. R.",
+                journal: "Eukaryotic Cell, 2009, 8, 1543-1553",
+                doi: "10.1128/EC.00142-09",
+                year: 2009
+            },
+            {
+                title: "Monoclonal Antibodies to Heat Shock Protein 60 Alter the Pathogenesis of Histoplasma capsulatum",
+                authors: "Guimaraes, A. J.; Frases, S.; FRASES, S.; Gomez, F. J.; Zancopé-Oliveira, R. M.; Nosanchuk, J. D.",
+                journal: "Infection and Immunity (Print), 2009, 77, 1357-1367",
+                doi: "10.1128/IAI.01443-08",
+                year: 2009
+            },
+            {
+                title: "Molecular epidemiology of isolates of the Cryptococcus neoformans species complex from Spain",
+                authors: "FRASES, S.; FRASES, S.; Ferrer C; Sanchez M; M.F Colom",
+                journal: "Revista Iberoamericana de Micología, 2009, 26, 112-117",
+                doi: "",
+                year: 2009
+            },
+            {
+                title: "Lipophilic Dye Staining of Cryptococcus neoformans Extracellular Vesicles and Capsule",
+                authors: "Nicola, A. M.; Frases, S.; FRASES, S.; Casadevall, A.",
+                journal: "Eukaryotic Cell, 2009, 8, 1373-1380",
+                doi: "10.1128/EC.00044-09",
+                year: 2009
+            },
+            {
+                title: "Growth conditions influence melanization of Brazilian clinical Sporothrix schenckii isolates",
+                authors: "Almeida-Paes, Rodrigo; Frases, Susana; FRASES, S.; Fialho Monteiro, Paulo Cezar; Gutierrez-Galhardo, Maria Clara; Zancopé-Oliveira, Rosely Maria; Nosanchuk, Joshua D.",
+                journal: "Microbes and Infection, 2009, 11, 554-562",
+                doi: "10.1016/j.micinf.2009.03.002",
+                year: 2009
+            },
+            {
+                title: "Galactoxylomannan-Mediated Immunological Paralysis Results from Specific B Cell Depletion in the Context of Widespread Immune System Damage",
+                authors: "De Jesus, M.; Nicola, A. M.; Frases, S.; FRASES, S.; Lee, I. R.; Mieses, S.; Casadevall, A.",
+                journal: "The Journal of Immunology (1950), 2009, 183, 3885-3894",
+                doi: "10.4049/jimmunol.0900449",
+                year: 2009
+            },
+            {
+                title: "Cryptococcus neoformans cryoultramicrotomy and vesicle fractionation reveals an intimate association between membrane lipids and glucuronoxylomannan",
+                authors: "Oliveira, Débora L.; Nimrichter, Leonardo; Miranda, Kildare; Frases, Susana; FRASES, S.; Faull, Kym F.; Casadevall, Arturo; Rodrigues, Marcio L.",
+                journal: "Fungal Genetics and Biology, 2009, 46, 956-963",
+                doi: "10.1016/j.fgb.2009.09.001",
+                year: 2009
+            },
+            {
+                title: "Capsule of Cryptococcus neoformans grows by enlargement of polysaccharide molecules",
+                authors: "Frases, S.; FRASES, S.; Pontes, B.; Nimrichter, L.; Viana, N. B.; Rodrigues, M. L.; Casadevall, A.",
+                journal: "Proceedings of the National Academy of Sciences of the United States of America, 2009, 106, 1228-1233",
+                doi: "10.1073/pnas.0808995106",
+                year: 2009
+            },
+            // 2008
+            {
+                title: "Vesicular transport in Histoplasma capsulatum: an effective mechanism for trans-cell wall transfer of proteins and lipids in ascomycetes",
+                authors: "Albuquerque, Priscila Costa; Nakayasu, Ernesto S.; Rodrigues, Marcio L.; Frases, Susana; FRASES, S.; Casadevall, Arturo; Zancopé-Oliveira, Rosely M.; Almeida, Igor C.; Nosanchuk, Joshua D.",
+                journal: "Cellular Microbiology, 2008, 10, 1695-1710",
+                doi: "10.1111/j.1462-5822.2008.01160.x",
+                year: 2008
+            },
+            {
+                title: "Growth and Pigment Production on D-Tryptophan Medium by Cryptococcus gattii, Cryptococcus neoformans, and Candida albicans",
+                authors: "Chaskes, S.; Frases, S.; FRASES, S.; Cammer, M.; Gerfen, G.; Casadevall, A.",
+                journal: "Journal of Clinical Microbiology (Print), 2008, 46, 255-264",
+                doi: "10.1128/JCM.01721-07",
+                year: 2008
+            },
+            {
+                title: "Following Fungal Melanin Biosynthesis with Solid-State NMR: Biopolymer Molecular Structures and Possible Connections to Cell-Wall Polysaccharides",
+                authors: "Zhong, Junyan; Frases, Susana; FRASES, S.; Wang, Hsin; Casadevall, Arturo; Stark, Ruth E.",
+                journal: "Biochemistry (Easton), 2008, 47, 4701-4710",
+                doi: "10.1021/bi702093r",
+                year: 2008
+            },
+            {
+                title: "Cryptococcus neoformans Capsular Polysaccharide and Exopolysaccharide Fractions Manifest Physical, Chemical, and Antigenic Differences",
+                authors: "Frases, S.; FRASES, S.; Nimrichter, L.; Viana, N. B.; Nakouzi, A.; Casadevall, A.",
+                journal: "Eukaryotic Cell, 2008, 7, 319-327",
+                doi: "10.1128/EC.00378-07",
+                year: 2008
+            },
+            {
+                title: "Capsule enlargement in Cryptococcus neoformans confers resistance to oxidative stress suggesting a mechanism for intracellular survival",
+                authors: "Zaragoza, Oscar; Chrisman, Cara J.; Castelli, Maria Victoria; Frases, Susana; FRASES, S.; Cuenca-Estrella, Manuel; Rodríguez-Tudela, Juan Luis; Casadevall, Arturo",
+                journal: "Cellular Microbiology, 2008, 10, 2043-2057",
+                doi: "10.1111/j.1462-5822.2008.01186.x",
+                year: 2008
+            },
+            // 2007
+            {
+                title: "Vesicular Polysaccharide Export in Cryptococcus neoformans Is a Eukaryotic Solution to the Problem of Fungal Trans-Cell Wall Transport",
+                authors: "Rodrigues, M. L.; Casadevall, A.; Nimrichter, L.; Oliveira, D. L.; Frases, S.; FRASES, S.; Miranda, K.; Zaragoza, O.; Alvarez, M.; Nakouzi, A.; Feldmesser, M.",
+                journal: "Eukaryotic Cell, 2007, 6, 48-59",
+                doi: "10.1128/EC.00318-06",
+                year: 2007
+            },
+            {
+                title: "Self-Aggregation of Cryptococcus neoformans Capsular Glucuronoxylomannan Is Dependent on Divalent Cations (Nimrichter, L. and FRASES, S. have contributed equally to this work)",
+                authors: "Nimrichter, L.; FRASES, S.; FRASES, S.; Cinelli, L. P.; Viana, N. B.; Nakouzi, A.; Travassos, L. R.; Casadevall, A.; Rodrigues, M. L.",
+                journal: "Eukaryotic Cell (Online), 2007, 6, 1400-1410",
+                doi: "10.1128/EC.00122-07",
+                year: 2007
+            },
+            {
+                title: "Cryptococcus neoformans laccase catalyses melanin synthesis from both D- and L-DOPA",
+                authors: "Eisenman, H. C.; Mues, M.; Weber, S. E.; Frases, S.; FRASES, S.; Chaskes, S.; Gerfen, G.; Casadevall, A.",
+                journal: "Microbiology (Reading), 2007, 153, 3954-3962",
+                doi: "10.1099/mic.0.2007/011049-0",
+                year: 2007
+            },
+            {
+                title: "Cryptococcus neoformans Can Utilize the Bacterial Melanin Precursor Homogentisic Acid for Fungal Melanogenesis",
+                authors: "Frases, S.; FRASES, S.; Salazar, A.; Dadachova, E.; Casadevall, A.",
+                journal: "Applied and Environmental Microbiology (Print), 2007, 73, 615-621",
+                doi: "10.1128/AEM.01947-06",
+                year: 2007
+            },
+            // 2006
+            {
+                title: "Induction by Klebsiella aerogenes of a Melanin-Like Pigment in Cryptococcus neoformans",
+                authors: "Frases, S.; FRASES, S.; Chaskes, S.; Dadachova, E.; Casadevall, A.",
+                journal: "Applied and Environmental Microbiology (Print), 2006, 72, 1542-1550",
+                doi: "10.1128/AEM.72.2.1542-1550.2006",
+                year: 2006
+            },
+            // 2005
+            {
+                title: "First Case of Human Cryptococcosis Due to Cryptococcus neoformans var. gattii in Spain",
+                authors: "Colom, M. F.; Frases, S.; FRASES, S.; Ferrer, C.; Jover, A.; Andreu, M.; Reus, S.; Sanchez, M.; Torres-Rodriguez, J. M.",
+                journal: "Journal of Clinical Microbiology (Print), 2005, 43, 3548-3550",
+                doi: "10.1128/JCM.43.7.3548-3550.2005",
+                year: 2005
+            },
+            // 2003
+            {
+                title: "First local case of human cryptococcosis in Spain caused by Cryptococcus neoformans var. gattii",
+                authors: "M.F Colom; FRASES, S.; Andreu M; Ferrer C; Jover A; Grupo de Epidemiologia de la criptococosis",
+                journal: "Revista Iberoamericana de Micología, 2003, 20, 181-181",
+                doi: "",
+                year: 2003
+            },
+            // 2001
+            {
+                title: "Epidemiological study of cryptococcosis in Spain: first results",
+                authors: "M.F Colom; FRASES, S.; Ferrer C; Martin-Mazuelos, E; Hermoso-de-Medoza, M; Torres-Rodriguez, JM; Quindos, G",
+                journal: "Revista Iberoamericana de Micología, 2001, 18, 99-104",
+                doi: "",
+                year: 2001
+            },
+            {
+                title: "Detection and Identification of Fungal Pathogens by PCR and by ITS2 and 5.8S Ribosomal DNA Typing in Ocular Infections",
+                authors: "Ferrer, C.; Colom, F.; Frases, S.; FRASES, S.; Mulet, E.; Abad, J. L.; Alio, J. L.",
+                journal: "Journal of Clinical Microbiology (Print), 2001, 39, 2873-2879",
+                doi: "10.1128/JCM.39.8.2873-2879.2001",
+                year: 2001
+            }
+        ].sort((a, b) => b.year - a.year); // Ordena por ano decrescente
+        
+        // Initialize publications functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Generate year filter buttons
+            const uniqueYears = [...new Set(publications.map(pub => pub.year))].sort((a, b) => b - a);
+            const yearFilterContainer = document.getElementById('year-filter-container');
+            
+            // Add "All" button
+            const allButton = document.createElement('button');
+            allButton.className = 'year-btn active';
+            allButton.textContent = 'Todas';
+            allButton.addEventListener('click', () => filterPublications('all'));
+            yearFilterContainer.appendChild(allButton);
+            
+            // Add year buttons
+            uniqueYears.forEach(year => {
+                const yearButton = document.createElement('button');
+                yearButton.className = 'year-btn';
+                yearButton.textContent = year;
+                yearButton.addEventListener('click', () => filterPublications(year));
+                yearFilterContainer.appendChild(yearButton);
+            });
+            
+            // Initial render
+            renderPublications(publications);
+            
+            // Search functionality
+            const searchInput = document.getElementById('search-input');
+            searchInput.addEventListener('input', handleSearch);
+        });
+        
+        // Render publications
+        function renderPublications(pubs) {
+            const container = document.querySelector('.publications-container');
+            container.innerHTML = '';
+            
+            if (pubs.length === 0) {
+                container.innerHTML = '<p class="no-results">Nenhuma publicação encontrada</p>';
+                return;
+            }
+            
+            // Agrupar por ano
+            const pubsByYear = pubs.reduce((acc, pub) => {
+                if (!acc[pub.year]) acc[pub.year] = [];
+                acc[pub.year].push(pub);
+                return acc;
+            }, {});
+            
+            // Obter anos em ordem decrescente
+            const years = Object.keys(pubsByYear).sort((a, b) => b - a);
+            
+            years.forEach(year => {
+                // Cabeçalho do ano
+                const yearHeader = document.createElement('div');
+                yearHeader.className = 'year-header';
+                yearHeader.textContent = `Publicações de ${year}`;
+                container.appendChild(yearHeader);
+                
+                // Publicações do ano
+                pubsByYear[year].forEach(pub => {
+                    const pubEl = document.createElement('div');
+                    pubEl.className = 'publication-item';
+                    
+                    // Formatar autores (remover duplicações)
+                    const authors = pub.authors
+                        .replace('Frases, Susana; FRASES, S.', 'Frases, Susana')
+                        .replace('FRASES, S.', 'Frases, Susana');
+                    
+                    pubEl.innerHTML = `
+                        <h3>${pub.title}</h3>
+                        <p class="authors">${authors}</p>
+                        <p class="journal">${pub.journal}</p>
+                        <p class="doi">DOI: ${pub.doi}</p>
+                        <div class="links">
+                            ${pub.doi ? `<a href="https://doi.org/${pub.doi}" target="_blank"><i class="fas fa-external-link-alt"></i> Ver publicação</a>` : ''}
+                            <a href="#"><i class="fas fa-quote-right"></i> Citar</a>
+                        </div>
+                    `;
+                    
+                    container.appendChild(pubEl);
+                });
+            });
+        }
+
+        // Filter publications by year
+        function filterPublications(year) {
+            // Update active button
+            document.querySelectorAll('.year-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.textContent === (year === 'all' ? 'Todas' : year.toString())) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            const filtered = year === 'all' 
+                ? publications 
+                : publications.filter(pub => pub.year === parseInt(year));
+            
+            renderPublications(filtered);
+        }
+
+        // Handle search input
+        function handleSearch() {
+            const term = this.value.toLowerCase();
+            const filtered = publications.filter(pub => 
+                pub.title.toLowerCase().includes(term) ||
+                pub.authors.toLowerCase().includes(term) ||
+                pub.journal.toLowerCase().includes(term) ||
+                (pub.doi && pub.doi.toLowerCase().includes(term))
+            );
+            
+            renderPublications(filtered);
+        }
+    </script>
+</body>
+</html>
